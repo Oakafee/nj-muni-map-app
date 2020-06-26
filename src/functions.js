@@ -16,19 +16,36 @@ export default {
 			.then((results) => {
 				let geos = results[0].data;
 				const buildings = results[1].data;
+				let assembledGeodata = {
+					"type": "FeatureCollection",
+					"crs": geos['crs'],
+					"features": []
+				};
 				
 				geos.features.forEach(geo => {
 					let timePeriods = {};
 					const geoMunCode = parseInt(geo.properties['MUN_CODE']);
+					let newFeature = {
+						"type": "Feature",
+						"geometry": {},
+						"properties": {}
+					};
 					
 					buildings.forEach(building => {
 						if(building['MUN_CODE'] == geoMunCode) {
 							timePeriods = building['periods']
 						}
 					});
-					geo.properties['time_periods'] = timePeriods;
+					newFeature.geometry = geo.geometry;
+					newFeature.properties['time_periods'] = timePeriods;
+					newFeature.properties['MUN_CODE'] = geo.properties['MUN_CODE'];
+					newFeature.properties['NAME'] = geo.properties['NAME'];
+					newFeature.properties['POP2010'] = geo.properties['POP2010'];
+					newFeature.properties['POPDEN2010'] = geo.properties['POPDEN2010'];
+					newFeature.properties['SQ_MILES'] = geo.properties['SQ_MILES'];
+					assembledGeodata.features.push(newFeature);
 				});
-				console.log(geos);
+				console.log(assembledGeodata);
 				
 				
 			});
