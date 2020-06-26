@@ -14,7 +14,7 @@ export default {
 		NjMap
 	},
 	mounted() {
-		functions.assembleCloudData();
+		functions.setMuniData();
 	}
 }
 </script>

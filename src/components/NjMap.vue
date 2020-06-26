@@ -28,7 +28,11 @@ export default {
 	computed: mapState(['muniData']),
 	watch: {
 		muniData() {
-			this.mapMuniLayer = L.geoJSON(this.muniData).addTo(this.map);
+			this.mapMuniLayer = L.geoJSON(this.muniData, {
+				onEachFeature: (feature, layer) => {
+					layer.bindPopup(feature.properties.NAME);
+				},
+			}).addTo(this.map);
 		}
 	}
 }

@@ -1,6 +1,5 @@
 export default {
-	MUNICIPALITIES_API_URL: 'https://opendata.arcgis.com/datasets/3d5d1db8a1b34b418c331f4ce1fd0fef_2.geojson',
-	BUILDINGS_API_URL: 'https://nj-municipalities-map.s3.us-east-2.amazonaws.com/PeriodsAll.json',
+	MUNI_API_URL: 'https://nj-municipalities-map.s3.us-east-2.amazonaws.com/MuniDataAll.json',
 	MAP_DEFAULT_OPTIONS: {
 		center: [40.17, -74.70],
 		// slightly north of the state's center, for the sake of the home page map
