@@ -1,17 +1,15 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import functions from './functions';
-
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
 	state: {
-		mobileNavOpen: false
+		municipalBoundaries: []
 	},
 	mutations: {
-		toggleMobileNav (state, navStatus) {
-			state.mobileNavOpen = navStatus;
+		getMunicipalBoundaries (state, apiResponse) {
+			state.municipalBoundaries = apiResponse;
 		},
 	}
 });
