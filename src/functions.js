@@ -1,8 +1,8 @@
 import axios from 'axios';
-
-//import store from './store.js';
+import store from './store.js';
 import constants from './constants';
 //import router from './router.js';
+import simplify from 'simplify-geojson';
 
 export default {
 	getStateGovData() {
@@ -12,9 +12,11 @@ export default {
 		return axios.get(constants.BUILDINGS_API_URL);
 	},
 	assembleCloudData() {
+		console.log(new Date());
 		Promise.all([this.getStateGovData(),this.getBuildingData()])
 			.then((results) => {
-				let geos = results[0].data;
+				console.log(new Date());
+				let geos = simplify(results[0].data, 0.001);
 				const buildings = results[1].data;
 				let assembledGeodata = {
 					"type": "FeatureCollection",
@@ -45,7 +47,8 @@ export default {
 					newFeature.properties['SQ_MILES'] = geo.properties['SQ_MILES'];
 					assembledGeodata.features.push(newFeature);
 				});
-				console.log(assembledGeodata);
+				console.log(new Date());
+				store.commit('setMuniData', assembledGeodata);
 				
 				
 			});

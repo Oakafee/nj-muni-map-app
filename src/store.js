@@ -5,11 +5,11 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
 	state: {
-		municipalBoundaries: []
+		muniData: []
 	},
 	mutations: {
-		getMunicipalBoundaries (state, apiResponse) {
-			state.municipalBoundaries = apiResponse;
+		setMuniData (state, muniData) {
+			state.muniData = muniData;
 		},
 	}
 });
