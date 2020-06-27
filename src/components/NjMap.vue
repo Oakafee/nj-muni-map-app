@@ -29,6 +29,24 @@ export default {
 	watch: {
 		muniData() {
 			this.mapMuniLayer = L.geoJSON(this.muniData, {
+				style: feature => {
+					const oldbuild = feature.properties.time_periods.contemporary;
+					let color = '';
+					
+					constants.BUILDING_COLORS.forEach(item => {
+						if (oldbuild > item.count) {
+							color = item.color
+						}
+					});
+					
+					return {
+						'color': 'black',
+						'fillColor': color,
+						'weight': 0.5,
+						'fillOpacity': 0.7
+						
+					}
+				},
 				onEachFeature: (feature, layer) => {
 					layer.bindPopup(feature.properties.NAME);
 				},
