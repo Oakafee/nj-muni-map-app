@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
 	<p v-if="muniData.length == 0">Loading...</p>
-	<div id="njMap" class=nj-muni__map></div>
+	<div id="njMap" class=nj-muni-map__map></div>
 	<p>{{ muniData }}/</p>
   </div>
 </template>
@@ -28,24 +28,21 @@ export default {
 	computed: mapState(['muniData']),
 	watch: {
 		muniData() {
+			const period = 'contemporary';
 			this.mapMuniLayer = L.geoJSON(this.muniData, {
 				style: feature => {
-					const oldbuild = feature.properties.time_periods.contemporary;
-					let color = '';
+					const buildNo = feature.properties.time_periods[period];
+					let polyStyles = {
+						'className': `${constants.POLY_CLASS} ${constants.POLY_CLASS}--${period} ${constants.POLY_CLASS}--${feature.properties.MUN_CODE}`
+					};
 					
 					constants.BUILDING_COLORS.forEach(item => {
-						if (oldbuild > item.count) {
-							color = item.color
+						if (buildNo >= item.count) {
+							// >= 0 includes munis that have no data
+							polyStyles['fillColor'] = item.color
 						}
 					});
-					
-					return {
-						'color': 'black',
-						'fillColor': color,
-						'weight': 0.5,
-						'fillOpacity': 0.7
-						
-					}
+					return polyStyles
 				},
 				onEachFeature: (feature, layer) => {
 					layer.bindPopup(feature.properties.NAME);
@@ -58,10 +55,18 @@ export default {
 
 <style lang="scss">
 @import '../../node_modules/leaflet/dist/leaflet.css';
+@import '../settings.scss';
 
-.nj-muni__map {
-	height: 900px;
-	width: 900px;
+.nj-muni-map {
+	&__map {
+		height: $map-height;
+		width: $map-width;
+	}
+	&__muni {
+		stroke: $poly-stroke-color;
+		stroke-width: $poly-stroke-width;
+		fill-opacity: $poly-fill-opacity;
+	}
 }	
 
 </style>

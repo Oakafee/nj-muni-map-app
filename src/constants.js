@@ -44,5 +44,6 @@ export default {
 			'count': 16000,
 			'color': '#f1e6f1'
 		}
-	]
+	],
+	POLY_CLASS: 'nj-muni-map__muni',
 }
