@@ -45,5 +45,6 @@ export default {
 			'color': '#f1e6f1'
 		}
 	],
+	TIME_PERIODS: ['old', 'interwar', 'postwar', 'liberal', 'reagan', 'contemporary'],
 	POLY_CLASS: 'nj-muni-map__muni',
 }

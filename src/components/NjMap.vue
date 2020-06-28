@@ -16,7 +16,7 @@ export default {
 	data() {
 		return {
 			map: {},
-			mapMuniLayer: {}
+			buildingLayers: {}
 		}
 	},
 	mounted() {
@@ -28,26 +28,28 @@ export default {
 	computed: mapState(['muniData']),
 	watch: {
 		muniData() {
-			const period = 'contemporary';
-			this.mapMuniLayer = L.geoJSON(this.muniData, {
-				style: feature => {
-					const buildNo = feature.properties.time_periods[period];
-					let polyStyles = {
-						'className': `${constants.POLY_CLASS} ${constants.POLY_CLASS}--${period} ${constants.POLY_CLASS}--${feature.properties.MUN_CODE}`
-					};
-					
-					constants.BUILDING_COLORS.forEach(item => {
-						if (buildNo >= item.count) {
-							// >= 0 includes munis that have no data
-							polyStyles['fillColor'] = item.color
-						}
-					});
-					return polyStyles
-				},
-				onEachFeature: (feature, layer) => {
-					layer.bindPopup(feature.properties.NAME);
-				},
-			}).addTo(this.map);
+			const _this = this;
+			constants.TIME_PERIODS.forEach((period, index) => {
+				_this.buildingLayers[index] = L.geoJSON(_this.muniData, {
+					style: feature => {
+						const buildNo = feature.properties.time_periods[period];
+						let polyStyles = {
+							'className': `${constants.POLY_CLASS} ${constants.POLY_CLASS}--${period} ${constants.POLY_CLASS}--${feature.properties.MUN_CODE}`
+						};
+						
+						constants.BUILDING_COLORS.forEach(item => {
+							if (buildNo >= item.count) {
+								// >= 0 includes munis that have no data
+								polyStyles['fillColor'] = item.color
+							}
+						});
+						return polyStyles
+					},
+					onEachFeature: (feature, layer) => {
+						layer.bindPopup(feature.properties.NAME);
+					},
+				}).addTo(_this.map);
+			});
 		}
 	}
 }
@@ -66,6 +68,11 @@ export default {
 		stroke: $poly-stroke-color;
 		stroke-width: $poly-stroke-width;
 		fill-opacity: $poly-fill-opacity;
+		/*
+		&--old, &--interwar, &--postwar, &--liberal, &--reagan, &--contemporary {
+			opacity: 0;
+		}
+		*/
 	}
 }	
 
