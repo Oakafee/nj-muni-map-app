@@ -1,8 +1,14 @@
 // map container
-$map-height: 700px;
+$map-height: 1200px;
 $map-width: 700px;
 
 // polygons
 $poly-stroke-color: black;
 $poly-stroke-width: 0.5px;
 $poly-fill-opacity: 0.7;
+
+// time periods
+$timePeriods: 'old', 'interwar', 'postwar', 'liberal', 'reagan', 'contemporary';
+
+// transition time
+$t: 0.2s

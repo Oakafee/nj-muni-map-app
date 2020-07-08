@@ -1,8 +1,7 @@
 <template>
-  <div class="hello">
+  <div :class="activePeriodClass">
 	<p v-if="muniData.length == 0">Loading...</p>
-	<div id="njMap" class=nj-muni-map__map></div>
-	<p>{{ muniData }}/</p>
+	<div id="njMap" :class="mapClass"></div>
   </div>
 </template>
 
@@ -16,7 +15,9 @@ export default {
 	data() {
 		return {
 			map: {},
-			buildingLayers: {}
+			buildingLayers: {},
+			mapClass: constants.MAP_CLASS,
+			periods: constants.TIME_PERIODS,
 		}
 	},
 	mounted() {
@@ -25,7 +26,12 @@ export default {
 			attribution: constants.MAP_TILE_2_ATTRIBUTION
 		}).addTo(this.map);
 	},
-	computed: mapState(['muniData']),
+	computed: {
+		...mapState(['muniData', 'activePeriodId']),
+		activePeriodClass() {
+			return `${this.mapClass}-container--${this.periods[this.activePeriodId]}`
+		}
+	},
 	watch: {
 		muniData() {
 			const _this = this;
@@ -67,13 +73,20 @@ export default {
 	&__muni {
 		stroke: $poly-stroke-color;
 		stroke-width: $poly-stroke-width;
-		fill-opacity: $poly-fill-opacity;
-		/*
-		&--old, &--interwar, &--postwar, &--liberal, &--reagan, &--contemporary {
-			opacity: 0;
-		}
-		*/
+		fill-opacity: 0;
+		opacity: 0;
+		//transition: fill-opacity $t; had delay issue
 	}
-}	
+}
+
+@each $period in $timePeriods {
+	.nj-muni-map__map-container--#{$period} {
+		.nj-muni-map__muni--#{$period} {
+			opacity: $poly-fill-opacity;
+			fill-opacity: $poly-fill-opacity;
+		}
+	}
+}
+
 
 </style>

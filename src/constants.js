@@ -46,5 +46,6 @@ export default {
 		}
 	],
 	TIME_PERIODS: ['old', 'interwar', 'postwar', 'liberal', 'reagan', 'contemporary'],
+	MAP_CLASS: 'nj-muni-map__map',
 	POLY_CLASS: 'nj-muni-map__muni',
 }
