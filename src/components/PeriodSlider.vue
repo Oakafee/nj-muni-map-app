@@ -14,7 +14,7 @@ export default {
 	name: 'PeriodSlider',
 	data() {
 		return {
-			periodNames: constants.TIME_PERIODS
+			periodNames: constants.TIME_PERIODS_PRETTY
 		}
 	},
 	computed: {

@@ -1,9 +1,9 @@
 export default {
 	MUNI_API_URL: 'https://nj-municipalities-map.s3.us-east-2.amazonaws.com/MuniDataAll.json',
 	MAP_DEFAULT_OPTIONS: {
-		center: [40.17, -74.70],
+		center: [40.2, -74.65],
 		// slightly north of the state's center, for the sake of the home page map
-		zoom: 9,
+		zoom: 8,
 		maxZoom: 15,
 		scrollWheelZoom: false
 	},
@@ -46,6 +46,7 @@ export default {
 		}
 	],
 	TIME_PERIODS: ['old', 'interwar', 'postwar', 'liberal', 'reagan', 'contemporary'],
+	TIME_PERIODS_PRETTY: ['Old (before 1918)', 'Interwar (1919-1945)', 'Postwar (1946-1961)', 'Sixties and Seventies (1962-1981)', 'Reagan Era (1982-1991)', 'Contemporary (1992-2019)'],
 	MAP_CLASS: 'nj-muni-map__map',
 	POLY_CLASS: 'nj-muni-map__muni',
 }

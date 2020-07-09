@@ -1,6 +1,6 @@
 <template>
-  <div :class="activePeriodClass">
-	<p v-if="muniData.length == 0">Loading...</p>
+  <div :class="[containerClass, activePeriodClass]">
+	<p class="nj-muni-map__loading" v-if="muniData.length == 0">Loading...</p>
 	<div id="njMap" :class="mapClass"></div>
   </div>
 </template>
@@ -8,7 +8,7 @@
 <script>
 import L from 'leaflet';
 import {mapState} from 'vuex';
-import constants from '../constants'
+import constants from '../constants';
 
 export default {
 	name: 'NjMap',
@@ -17,6 +17,7 @@ export default {
 			map: {},
 			buildingLayers: {},
 			mapClass: constants.MAP_CLASS,
+			containerClass: `${constants.MAP_CLASS}-container`,
 			periods: constants.TIME_PERIODS,
 		}
 	},
@@ -29,7 +30,7 @@ export default {
 	computed: {
 		...mapState(['muniData', 'activePeriodId']),
 		activePeriodClass() {
-			return `${this.mapClass}-container--${this.periods[this.activePeriodId]}`
+			return `${this.containerClass}--${this.periods[this.activePeriodId]}`
 		}
 	},
 	watch: {
@@ -66,6 +67,16 @@ export default {
 @import '../settings.scss';
 
 .nj-muni-map {
+	&__loading {
+		position: absolute;
+		left: 80px;
+		background-color: white;
+		padding: 5px;
+		z-index: 999;
+	}
+	&__map-container {
+		position: relative;
+	}
 	&__map {
 		height: $map-height;
 		width: $map-width;
