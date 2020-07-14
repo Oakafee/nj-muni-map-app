@@ -5,15 +5,15 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
 	state: {
-		muniData: [],
-		activePeriodId: 5
+		njMap: {},
+		activePeriodId: 5,
 	},
 	mutations: {
-		setMuniData (state, muniData) {
-			state.muniData = muniData
+		startNjMap(state, njMap) {
+			state.njMap = njMap
 		},
-		setActivePeriod (state, id) {
-			state.activePeriodId = id
+		switchTimePeriod(state, timePeriod) {
+			state.activePeriodId = timePeriod
 		}
 	}
 });

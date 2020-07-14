@@ -1,5 +1,6 @@
 export default {
 	MUNI_API_URL: 'https://nj-municipalities-map.s3.us-east-2.amazonaws.com/MuniDataAll.json',
+	MAP_TITLE: 'njMap',
 	MAP_DEFAULT_OPTIONS: {
 		center: [40.2, -74.65],
 		// slightly north of the state's center, for the sake of the home page map
