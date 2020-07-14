@@ -1,6 +1,6 @@
 <template>
   <div :class="[containerClass, activePeriodClass]">
-	<p class="nj-muni-map__loading">Loading...</p>
+	<p class="nj-muni-map__loading" v-if="mapLoading">Loading...</p>
 	<div id="njMap" :class="mapClass"></div>
   </div>
 </template>
@@ -27,7 +27,7 @@ export default {
 		}).addTo(this.njMap);
 	},
 	computed: {
-		...mapState(['njMap', 'activePeriodId']),
+		...mapState(['njMap', 'activePeriodId', 'mapLoading']),
 		activePeriodClass() {
 			return `${this.containerClass}--${this.periods[this.activePeriodId]}`
 		}

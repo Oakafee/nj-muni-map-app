@@ -60,8 +60,10 @@ export default {
 	},
 	mounted() {
 		const _this = this;
+		store.commit('changeLoadingState', true);
 		axios.get(constants.MUNI_API_URL).then((response) => {
 			_this.displayMuniData(response.data);
+			store.commit('changeLoadingState', false);
 		});
 	}
 }

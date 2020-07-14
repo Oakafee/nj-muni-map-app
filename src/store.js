@@ -6,6 +6,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
 	state: {
 		njMap: {},
+		mapLoading: false,
 		activePeriodId: 5,
 	},
 	mutations: {
@@ -14,6 +15,9 @@ const store = new Vuex.Store({
 		},
 		switchTimePeriod(state, timePeriod) {
 			state.activePeriodId = timePeriod
+		},
+		changeLoadingState(state, loadingState) {
+			state.mapLoading = loadingState
 		}
 	}
 });
