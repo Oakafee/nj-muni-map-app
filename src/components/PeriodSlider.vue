@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div class="nj-muni-map__period-slider">
 	<input type="range" id="periods" name="periods"
          min="0" max="5" v-model="activePeriodId" />
 	period: {{ periodNames[activePeriodId] }}
@@ -61,25 +61,25 @@ export default {
 	mounted() {
 		const _this = this;
 		store.commit('changeLoadingState', true);
-		axios.get(constants.MUNI_API_URL).then((response) => {
-			_this.displayMuniData(response.data);
-			store.commit('changeLoadingState', false);
+		axios.get(`${constants.BASE_API_URL}${constants.MUNI_FILENAME}`)
+			.then((response) => {
+				_this.displayMuniData(response.data);
+				store.commit('changeLoadingState', false);
 		});
 	}
 }
 </script>
 
 <style lang="scss">
-@import '../../node_modules/leaflet/dist/leaflet.css';
 @import '../settings.scss';
 
 .nj-muni-map {
 	&__muni {
 		stroke: $poly-stroke-color;
 		stroke-width: $poly-stroke-width;
-		fill-opacity: 0;
-		opacity: 0;
-		//transition: fill-opacity $t; had delay issue
+		opacity: $poly-fill-opacity;
+		fill-opacity: $poly-fill-opacity;
+		visibility: hidden;
 	}
 	&__slider {
 		position: static;
@@ -89,8 +89,7 @@ export default {
 @each $period in $timePeriods {
 	.nj-muni-map__map-container--#{$period} {
 		.nj-muni-map__muni--#{$period} {
-			opacity: $poly-fill-opacity;
-			fill-opacity: $poly-fill-opacity;
+			visibility: visible;
 		}
 	}
 }

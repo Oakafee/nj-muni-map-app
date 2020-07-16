@@ -8,6 +8,10 @@ const store = new Vuex.Store({
 		njMap: {},
 		mapLoading: false,
 		activePeriodId: 5,
+		transitVisibility: {
+			'railroad': false,
+			'highway': false
+		}
 	},
 	mutations: {
 		startNjMap(state, njMap) {
@@ -18,6 +22,9 @@ const store = new Vuex.Store({
 		},
 		changeLoadingState(state, loadingState) {
 			state.mapLoading = loadingState
+		},
+		toggleTransit(state, payload) {
+			state.transitVisibility[payload.transitType] = payload.visible;
 		}
 	}
 });

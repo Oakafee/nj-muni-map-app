@@ -1,5 +1,5 @@
 <template>
-  <div :class="[containerClass, activePeriodClass]">
+  <div :class="[containerClass, activePeriodClass, railroadVisibleClass, highwayVisibleClass]">
 	<p class="nj-muni-map__loading" v-if="mapLoading">Loading...</p>
 	<div id="njMap" :class="mapClass"></div>
   </div>
@@ -27,9 +27,20 @@ export default {
 		}).addTo(this.njMap);
 	},
 	computed: {
-		...mapState(['njMap', 'activePeriodId', 'mapLoading']),
+		...mapState(['njMap', 'activePeriodId', 'mapLoading', 'transitVisibility']),
 		activePeriodClass() {
 			return `${this.containerClass}--${this.periods[this.activePeriodId]}`
+		},
+		// this is not very efficient. how can I do it better?
+		railroadVisibleClass() {
+			if (this.transitVisibility['railroad']) {
+				return `${this.containerClass}--railroad`
+			} else return null;
+		},
+		highwayVisibleClass() {
+			if (this.transitVisibility['highway']) {
+				return `${this.containerClass}--highway`
+			} else return null;
 		}
 	},
 }

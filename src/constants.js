@@ -1,5 +1,8 @@
 export default {
-	MUNI_API_URL: 'https://nj-municipalities-map.s3.us-east-2.amazonaws.com/MuniDataAll.json',
+	BASE_API_URL: 'https://nj-municipalities-map.s3.us-east-2.amazonaws.com/',
+	MUNI_FILENAME: 'MuniDataAll.json',
+	RAILROAD_FILENAME: 'njrr.geojson',
+	HIGHWAY_FILENAME: 'njhighways.geojson',
 	MAP_TITLE: 'njMap',
 	MAP_DEFAULT_OPTIONS: {
 		center: [40.2, -74.65],
@@ -50,4 +53,5 @@ export default {
 	TIME_PERIODS_PRETTY: ['Old (before 1918)', 'Interwar (1919-1945)', 'Postwar (1946-1961)', 'Sixties and Seventies (1962-1981)', 'Reagan Era (1982-1991)', 'Contemporary (1992-2019)'],
 	MAP_CLASS: 'nj-muni-map__map',
 	POLY_CLASS: 'nj-muni-map__muni',
+	TRANSIT_CLASS: 'nj-muni-map__transit'
 }
