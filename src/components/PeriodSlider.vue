@@ -18,7 +18,7 @@ export default {
 	data() {
 		return {
 			periodNames: constants.TIME_PERIODS_PRETTY,
-			buildingLayers: {},
+			buildingLayers: {}
 		}
 	},
 	computed: {
@@ -34,9 +34,8 @@ export default {
 	},
 	methods: {
 		displayMuniData(muniData) {
-			const _this = this;
 			constants.TIME_PERIODS.forEach((period, index) => {
-				_this.buildingLayers[index] = L.geoJSON(muniData, {
+				this.buildingLayers[index] = L.geoJSON(muniData, {
 					style: feature => {
 						const buildNo = feature.properties.time_periods[period];
 						let polyStyles = {
@@ -53,8 +52,11 @@ export default {
 					},
 					onEachFeature: (feature, layer) => {
 						layer.bindPopup(feature.properties.NAME);
+						layer.on('click', function() {
+							store.commit('selectMuni', feature.properties);
+						})
 					},
-				}).addTo(_this.njMap);
+				}).addTo(this.njMap);
 			});
 		}
 	},

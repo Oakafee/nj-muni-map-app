@@ -4,6 +4,7 @@
 	<div class="nj-muni-map__right-pane">
 		<MapTitle />
 		<PeriodSlider />
+		<MuniGraph />
 		<TransitToggle />
 	</div>
   </div>
@@ -13,12 +14,13 @@
 import NjMap from './components/NjMap.vue';
 import MapTitle from './components/MapTitle.vue';
 import PeriodSlider from './components/PeriodSlider.vue';
+import MuniGraph from './components/MuniGraph.vue';
 import TransitToggle from './components/TransitToggle.vue';
 
 export default {
 	name: 'App',
 	components: {
-		NjMap, MapTitle, PeriodSlider, TransitToggle
+		NjMap, MapTitle, PeriodSlider, MuniGraph, TransitToggle
 	}
 }
 </script>
