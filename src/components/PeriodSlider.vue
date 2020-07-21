@@ -51,7 +51,7 @@ export default {
 						return polyStyles
 					},
 					onEachFeature: (feature, layer) => {
-						layer.bindPopup(feature.properties.NAME);
+						// layer.bindPopup(feature.properties.NAME);
 						layer.on('click', function() {
 							store.commit('selectMuni', feature.properties);
 						})

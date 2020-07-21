@@ -30,13 +30,15 @@ export default {
 @import 'settings.scss';
 
 .nj-muni-map {
-	display: flex;
+	@media (min-width: $mobile-break) {
+		display: flex;
+	}
 	&__left-pane {
 		flex: 1 0 $map-width;
 		padding-right: $padding;
 	}
 	&__right-pane {
-		flex: 1 0 100%;
+		flex: 1 0 500px;
 		padding-top: $padding;
 	}
 }

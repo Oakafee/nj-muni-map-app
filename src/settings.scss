@@ -1,8 +1,9 @@
 $padding: 10px;
+$mobile-break: 600px;
 
 // map container
 $map-height: 700px;
-$map-width: 400px;
+$map-width: 500px;
 
 // polygons
 $poly-stroke-color: black;
@@ -14,4 +15,9 @@ $timePeriods: 'old', 'interwar', 'postwar', 'liberal', 'reagan', 'contemporary';
 $transitModes: 'railroad', 'highway';
 
 // transition time
-$t: 0.2s
+$t: 0.2s;
+
+// graph
+$chart-height: 200px;
+$bar-color: #a769a7;
+$bar-width: 30px;

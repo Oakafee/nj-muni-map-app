@@ -43,15 +43,13 @@ export default {
 		{
 			'count': 8000,
 			'color': '#a769a7'
-		},
-		{
-			'count': 16000,
-			'color': '#f1e6f1'
 		}
 	],
 	TIME_PERIODS: ['old', 'interwar', 'postwar', 'liberal', 'reagan', 'contemporary'],
 	TIME_PERIODS_PRETTY: ['Old (before 1918)', 'Interwar (1919-1945)', 'Postwar (1946-1961)', 'Sixties and Seventies (1962-1981)', 'Reagan Era (1982-1991)', 'Contemporary (1992-2019)'],
 	MAP_CLASS: 'nj-muni-map__map',
 	POLY_CLASS: 'nj-muni-map__muni',
-	TRANSIT_CLASS: 'nj-muni-map__transit'
+	TRANSIT_CLASS: 'nj-muni-map__transit',
+	CHART_MAX_BUILDINGS: 16000,
+	CHART_HEIGHT_PX: 200,
 }

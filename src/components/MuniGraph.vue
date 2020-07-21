@@ -1,23 +1,70 @@
 <template>
-	<div class="nj-muni-graph">
-		<p>{{ activeMuniInfo }} </p>
-		<div class="nj-muni-graph__container">
-			<div class="nj-muni-graph__bar"></div>
-			<div class="nj-muni-graph__bar"></div>
-			<div class="nj-muni-graph__bar"></div>
-			<div class="nj-muni-graph__bar"></div>
-			<div class="nj-muni-graph__bar"></div>
-			<div class="nj-muni-graph__bar"></div>
+	<div class="nj-muni-graph" v-if="activeMuniInfo.name">
+		<h3 style="text-align:center">{{ activeMuniInfo.name }} </h3>
+		<svg version="1.2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="nj-muni-graph__y-axis" aria-labelledby="title" role="img">
+				<title id="title">Graph of building built over time by municipality</title>
+			<g class="nj-muni-graph__y-grid">
+				<line x1="45" x2="50" y1="0" y2="0"></line>
+				<line x1="45" x2="50" y1="50" y2="50"></line>
+				<line x1="45" x2="50" y1="100" y2="100"></line>
+				<line x1="45" x2="50" y1="150" y2="150"></line>				
+			</g>
+			<g class="nj-muni-graph__y-label">
+				<text x="18" y="15">16,000</text>
+				<text x="18" y="65">12,000</text>
+				<text x="24" y="115">8,000</text>
+				<text x="24" y="165">4,000</text>
+			</g>
+			<g class="explanation">
+				<text x="0" y="0" transform="translate(12, 150) rotate(270)">Buildings Built</text>
+			</g>
+		</svg>
+		<div class="nj-muni-graph__bar-container">
+			<div
+				class="nj-muni-graph__bar"
+				v-for="(barHeight, index) in barHeights"
+				:key="barHeight"
+				:style="{ height:`${barHeight}px` }"
+			>
+				<div class="nj-muni-graph__bar-number">{{ buildingData[index] }}</div>
+			</div>
 		</div>
+		<div class="nj-muni-graph__x-axis">
+			<div
+				class="nj-muni-graph__x-label"
+				v-for="(period, index) in timePeriodsPretty"
+				:key="period"
+			>
+				<span v-if="index == activePeriodId" style="font-weight:bold">{{ period }} </span>
+				<span v-else>{{ period }} </span>
+			</div>
+		</div>
+		<p>activePeriodId: {{ activePeriodId }} </p>
 	</div>
 </template>
 
 <script>
 import {mapState} from 'vuex';
+import constants from '../constants';
 
 export default {
 	name: 'MuniGraph',
-	computed: mapState(['activeMuniInfo'])
+	data() {
+		return {
+			timePeriodsPretty: constants.TIME_PERIODS_PRETTY
+		}
+	},
+	computed: {
+		...mapState(['activeMuniInfo', 'activePeriodId']),
+		buildingData() {
+			return Object.values(this.activeMuniInfo.time_periods);
+		},
+		barHeights() {
+			return this.buildingData.map(x =>
+				x / constants.CHART_MAX_BUILDINGS * constants.CHART_HEIGHT_PX
+			);
+		}
+	}
 }
 </script>
 
@@ -25,20 +72,52 @@ export default {
 @import '../settings.scss';
 
 .nj-muni-graph {
-	&__container {
-		border: 1px solid black;
+	&__y-axis {
+		height: 200px;
+		width: 50px;
+		display: inline-block;
+	}
+	&__y-label {
+		font-size: 8pt;
+	}
+	&__y-grid {
+		stroke: black;
+	}
+	&__bar-container {
+		border-bottom: 1px solid black;
+		border-left: 1px solid black;
 		width: 300px;
-		height: 100px;
-		display: flex;
+		height: 200px;
+		display: inline-flex;
 		justify-content: space-evenly;
-		align-items: end;
+		align-items: flex-end;
 	}
 	&__bar {
-		max-width: 10px;
-		height: 50px;
-		background-color: black;
+		max-width: $bar-width;
+		height: 0px;
+		background-color: $bar-color;
 		flex: 1 0 auto;
+		transition: height $t;
+		&:hover .nj-muni-graph__bar-number {
+			opacity: 1;
+		}
+	}
+	&__bar-number {
+		position: relative;
+		top: -20px;
+		opacity: 0;
+		transition: opacity $t;
+	}
+	&__x-axis {
+		display: flex;
+		justify-content: space-evenly;		
+		margin-left: 50px;
+		width: 300px;
+	}
+	&__x-label {
+		max-width: $bar-width;
+		font-size: 10pt;
+		transform: rotate(65deg);
 	}
 }
-
 </style>
