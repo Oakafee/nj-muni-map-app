@@ -9,7 +9,7 @@ export default {
 		// slightly north of the state's center, for the sake of the home page map
 		zoom: 8,
 		maxZoom: 15,
-		scrollWheelZoom: false
+		// scrollWheelZoom: false
 	},
 	MAP_TILE_LAYER: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
 	MAP_TILE_2_LAYER: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',

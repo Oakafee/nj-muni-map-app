@@ -1,47 +1,50 @@
 <template>
-	<div class="nj-muni-graph" v-if="activeMuniInfo.name">
-		<h3 style="text-align:center">{{ activeMuniInfo.name }} </h3>
-		<svg version="1.2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="nj-muni-graph__y-axis" aria-labelledby="title" role="img">
-				<title id="title">Graph of building built over time by municipality</title>
-			<g class="nj-muni-graph__y-grid">
-				<line x1="45" x2="50" y1="0" y2="0"></line>
-				<line x1="45" x2="50" y1="50" y2="50"></line>
-				<line x1="45" x2="50" y1="100" y2="100"></line>
-				<line x1="45" x2="50" y1="150" y2="150"></line>				
-			</g>
-			<g class="nj-muni-graph__y-label">
-				<text x="18" y="15">16,000</text>
-				<text x="18" y="65">12,000</text>
-				<text x="24" y="115">8,000</text>
-				<text x="24" y="165">4,000</text>
-			</g>
-			<g class="explanation">
-				<text x="0" y="0" transform="translate(12, 150) rotate(270)">Buildings Built</text>
-			</g>
-		</svg>
-		<div class="nj-muni-graph__bar-container">
-			<div
-				class="nj-muni-graph__bar"
-				v-for="(barHeight, index) in barHeights"
-				:key="barHeight"
-				:style="{ height:`${barHeight}px` }"
-			>
-				<div class="nj-muni-graph__bar-number">{{ buildingData[index] }}</div>
-			</div>
-		</div>
-		<div class="nj-muni-graph__x-axis">
-			<div
-				class="nj-muni-graph__x-label-container"
-				v-for="(period, index) in timePeriodsPretty"
-				:key="period"
-			>
+	<div class="nj-muni-graph">
+		<div v-if="activeMuniInfo.name">
+			<h3 class="nj-muni-graph__title">{{ activeMuniInfo.name }} </h3>
+			<svg version="1.2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="nj-muni-graph__y-axis" aria-labelledby="title" role="img">
+					<title id="title">Graph of building built over time by municipality</title>
+				<g class="nj-muni-graph__y-grid">
+					<line x1="45" x2="50" y1="0" y2="0"></line>
+					<line x1="45" x2="50" y1="50" y2="50"></line>
+					<line x1="45" x2="50" y1="100" y2="100"></line>
+					<line x1="45" x2="50" y1="150" y2="150"></line>				
+				</g>
+				<g class="nj-muni-graph__y-label">
+					<text x="18" y="15">16,000</text>
+					<text x="18" y="65">12,000</text>
+					<text x="24" y="115">8,000</text>
+					<text x="24" y="165">4,000</text>
+				</g>
+				<g class="explanation">
+					<text x="0" y="0" transform="translate(12, 150) rotate(270)">Buildings Built</text>
+				</g>
+			</svg>
+			<div class="nj-muni-graph__bar-container">
 				<div
-					class="nj-muni-graph__x-label"
-					:class="(index == activePeriodId) ? 'nj-muni-graph__x-label--active': ''"
-				>{{ period }} </div>
+					class="nj-muni-graph__bar"
+					v-for="(barHeight, index) in barHeights"
+					:key="barHeight"
+					:style="{ height:`${barHeight}px` }"
+				>
+					<div class="nj-muni-graph__bar-number">{{ buildingData[index] }}</div>
+				</div>
 			</div>
+			<div class="nj-muni-graph__x-axis">
+				<div
+					class="nj-muni-graph__x-label-container"
+					v-for="(period, index) in timePeriodsPretty"
+					:key="period"
+				>
+					<div
+						class="nj-muni-graph__x-label"
+						:class="(index == activePeriodId) ? 'nj-muni-graph__x-label--active': ''"
+					>{{ period }} </div>
+				</div>
+			</div>
+			<p>activePeriodId: {{ activePeriodId }} </p>
 		</div>
-		<p>activePeriodId: {{ activePeriodId }} </p>
+		<div v-else><p>Click a municipality on the map for a chart of its development over time </p></div>
 	</div>
 </template>
 
@@ -75,6 +78,10 @@ export default {
 @import '../settings.scss';
 
 .nj-muni-graph {
+	&__title {
+		margin-left: 100px;
+		margin-bottom: $spacing;
+	}
 	&__y-axis {
 		height: 200px;
 		width: 50px;

@@ -1,8 +1,9 @@
 <template>
   <div class="nj-muni-map__period-slider">
+	<p>Select time period: </p>
 	<input type="range" id="periods" name="periods"
          min="0" max="5" v-model="activePeriodId" />
-	period: {{ periodNames[activePeriodId] }}
+	<h3>{{ periodNames[activePeriodId] }} </h3>
   </div>
 </template>
 
