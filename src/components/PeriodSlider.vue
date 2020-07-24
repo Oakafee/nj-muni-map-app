@@ -52,7 +52,7 @@ export default {
 					},
 					onEachFeature: (feature, layer) => {
 						// layer.bindPopup(feature.properties.NAME);
-						layer.on('click', function() {
+						layer.on('click', () => {
 							store.commit('selectMuni', feature.properties);
 						})
 					},

@@ -7,8 +7,13 @@ $map-width: 500px;
 
 // polygons
 $poly-stroke-color: black;
-$poly-stroke-width: 0.5px;
+$poly-stroke-width: 0.2px;
 $poly-fill-opacity: 0.6;
+
+// lines
+$transit-width: 0.8px;
+$railroad-color: #4f5efc;
+$highway-color: #d34444;
 
 // classes
 $timePeriods: 'old', 'interwar', 'postwar', 'liberal', 'reagan', 'contemporary';

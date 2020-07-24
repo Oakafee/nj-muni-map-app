@@ -92,12 +92,12 @@ export default {
 	&__transit {
 		visibility: hidden;
 		&--railroad {
-			stroke: blue;
-			stroke-width: 0.8px;
+			stroke: $railroad-color;
+			stroke-width: $transit-width;
 		}
 		&--highway {
-			stroke: red;
-			stroke-width: 0.8px;
+			stroke: $highway-color;
+			stroke-width: $transit-width;
 		}
 	}
 }

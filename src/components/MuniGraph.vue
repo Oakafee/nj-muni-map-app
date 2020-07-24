@@ -31,12 +31,14 @@
 		</div>
 		<div class="nj-muni-graph__x-axis">
 			<div
-				class="nj-muni-graph__x-label"
+				class="nj-muni-graph__x-label-container"
 				v-for="(period, index) in timePeriodsPretty"
 				:key="period"
 			>
-				<span v-if="index == activePeriodId" style="font-weight:bold">{{ period }} </span>
-				<span v-else>{{ period }} </span>
+				<div
+					class="nj-muni-graph__x-label"
+					:class="(index == activePeriodId) ? 'nj-muni-graph__x-label--active': ''"
+				>{{ period }} </div>
 			</div>
 		</div>
 		<p>activePeriodId: {{ activePeriodId }} </p>
@@ -51,7 +53,8 @@ export default {
 	name: 'MuniGraph',
 	data() {
 		return {
-			timePeriodsPretty: constants.TIME_PERIODS_PRETTY
+			timePeriodsPretty: constants.TIME_PERIODS_PRETTY,
+			bold: { fontWeight: 'bold' }
 		}
 	},
 	computed: {
@@ -91,6 +94,7 @@ export default {
 		display: inline-flex;
 		justify-content: space-evenly;
 		align-items: flex-end;
+		position: absolute; /* this is a 'hacky' formatting fix */
 	}
 	&__bar {
 		max-width: $bar-width;
@@ -112,12 +116,19 @@ export default {
 		display: flex;
 		justify-content: space-evenly;		
 		margin-left: 50px;
+		padding-top: 10px;
 		width: 300px;
 	}
-	&__x-label {
+	&__x-label-container {
 		max-width: $bar-width;
 		font-size: 10pt;
 		transform: rotate(65deg);
+	}
+	&__x-label {
+		width: 125px;
+		&--active {
+			font-weight: bold;
+		}
 	}
 }
 </style>
