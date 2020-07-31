@@ -2,8 +2,8 @@
   <ul class="nj-muni-map__transit-toggle">
 	<li>Add to map: </li>
 	<li><em>County boundaries </em></li>
-	<li @click.once="getTransitLayer('railroad')"><input type="checkbox" id="railroad" name="railroad" v-model="showRailroad" /><label for="railroad">Railroads </label></li>
-	<li @click.once="getTransitLayer('highway')"><input type="checkbox" id="highway" name="highway" v-model="showHighway" /><label for="highway">Highways </label></li>
+	<li @click.once="getTransitLayer('railroad')"><input type="checkbox" id="railroad" name="railroad" v-model="showRailroad" /><label for="railroad">Railroads (current NJ Transit)</label></li>
+	<li @click.once="getTransitLayer('highway')"><input type="checkbox" id="highway" name="highway" v-model="showHighway" /><label for="highway">Highways (current) </label></li>
 	<li>RR visible: {{ transitVisibility['railroad'] }} </li>
 	<li>Highway visible: {{ transitVisibility['highway'] }} </li>
   </ul>

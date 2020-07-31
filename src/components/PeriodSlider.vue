@@ -80,9 +80,9 @@ export default {
 	&__muni {
 		stroke: $poly-stroke-color;
 		stroke-width: $poly-stroke-width;
-		opacity: $poly-fill-opacity;
-		fill-opacity: $poly-fill-opacity;
+		fill-opacity: 1;
 		visibility: hidden;
+		transition: fill-opacity $t;
 	}
 	&__slider {
 		position: static;
@@ -97,4 +97,9 @@ export default {
 	}
 }
 
+.nj-muni-map__map-container--translucent {
+	.nj-muni-map__muni {
+		fill-opacity: $poly-fill-opacity;		
+	}
+}
 </style>

@@ -44,7 +44,7 @@
 			</div>
 			<p>activePeriodId: {{ activePeriodId }} </p>
 		</div>
-		<div v-else><p>Click a municipality on the map for a chart of its development over time </p></div>
+		<div class="nj-muni-graph__empty-message" v-else><p>Click a municipality on the map for a chart of its development over time </p></div>
 	</div>
 </template>
 
@@ -96,8 +96,8 @@ export default {
 	&__bar-container {
 		border-bottom: 1px solid black;
 		border-left: 1px solid black;
-		width: 300px;
-		height: 200px;
+		width: $chart-width;
+		height: $chart-height;
 		display: inline-flex;
 		justify-content: space-evenly;
 		align-items: flex-end;
@@ -124,7 +124,7 @@ export default {
 		justify-content: space-evenly;		
 		margin-left: 50px;
 		padding-top: 10px;
-		width: 300px;
+		width: $chart-width;
 	}
 	&__x-label-container {
 		max-width: $bar-width;
@@ -136,6 +136,9 @@ export default {
 		&--active {
 			font-weight: bold;
 		}
+	}
+	&__empty-message {
+		font-style: italic;
 	}
 }
 </style>

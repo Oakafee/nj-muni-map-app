@@ -1,6 +1,7 @@
 $spacing: 10px;
 $spacing-lg: 20px;
-$mobile-break: 600px;
+$mobile-break: 900px;
+$medium-break: 1200px;
 
 // map container
 $map-height: 700px;
@@ -9,7 +10,7 @@ $map-width: 500px;
 // polygons
 $poly-stroke-color: black;
 $poly-stroke-width: 0.2px;
-$poly-fill-opacity: 0.6;
+$poly-fill-opacity: 0.5;
 
 // lines
 $transit-width: 0.8px;
@@ -24,6 +25,7 @@ $transitModes: 'railroad', 'highway';
 $t: 0.2s;
 
 // graph
+$chart-width: 250px;
 $chart-height: 200px;
 $bar-color: #a769a7;
 $bar-width: 30px;

@@ -19,7 +19,8 @@ const store = new Vuex.Store({
 			'popden2010': '',
 			'sq_miles': '',
 			'time_periods': {},
-		}
+		},
+		muniTranslucent: false,
 	},
 	mutations: {
 		startNjMap(state, njMap) {
@@ -41,6 +42,9 @@ const store = new Vuex.Store({
 			state.activeMuniInfo['popden2010'] = muniInfo['POPDEN2010'];
 			state.activeMuniInfo['sq_miles'] = muniInfo['SQ_MILES'];
 			state.activeMuniInfo['time_periods'] = muniInfo['time_periods'];
+		},
+		toggleMuniOpacity(state) {
+			state.muniTranslucent = !state.muniTranslucent
 		}
 	}
 });
