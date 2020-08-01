@@ -1,7 +1,14 @@
 <template>
 	<div class="nj-muni-graph">
 		<div v-if="activeMuniInfo.name">
-			<h3 class="nj-muni-graph__title">{{ activeMuniInfo.name }} </h3>
+			<h4 class="nj-muni-graph__title">{{ activeMuniInfo.name }} </h4>
+			<ul class="nj-muni-graph__muni-info">
+				<li>Area: {{ activeMuniInfo.sq_miles}} mi<sup>2</sup></li>
+				<li>Population (2010): {{ activeMuniInfo.pop2010 }} </li>
+				<li>Pop density: {{ activeMuniInfo.popden2010 }} people/mi
+					<sup>2</sup>
+				</li>
+			</ul>
 			<svg version="1.2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="nj-muni-graph__y-axis" aria-labelledby="title" role="img">
 					<title id="title">Graph of building built over time by municipality</title>
 				<g class="nj-muni-graph__y-grid">
@@ -42,7 +49,6 @@
 					>{{ period }} </div>
 				</div>
 			</div>
-			<p>activePeriodId: {{ activePeriodId }} </p>
 		</div>
 		<div class="nj-muni-graph__empty-message" v-else><p>Click a municipality on the map for a chart of its development over time </p></div>
 	</div>
@@ -78,6 +84,7 @@ export default {
 @import '../settings.scss';
 
 .nj-muni-graph {
+	padding-top: $spacing;
 	&__title {
 		margin-left: 100px;
 		margin-bottom: $spacing;
@@ -139,6 +146,10 @@ export default {
 	}
 	&__empty-message {
 		font-style: italic;
+	}
+	&__muni-info {
+		text-align: right;
+		font-size: $font-size-sm;
 	}
 }
 </style>

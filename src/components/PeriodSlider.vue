@@ -1,9 +1,9 @@
 <template>
   <div class="nj-muni-map__period-slider">
+	<h3>{{ periodNames[activePeriodId] }} </h3>
 	<p>Select time period: </p>
 	<input type="range" id="periods" name="periods"
          min="0" max="5" v-model="activePeriodId" />
-	<h3>{{ periodNames[activePeriodId] }} </h3>
   </div>
 </template>
 
@@ -80,7 +80,7 @@ export default {
 	&__muni {
 		stroke: $poly-stroke-color;
 		stroke-width: $poly-stroke-width;
-		fill-opacity: 1;
+		fill-opacity: 0;
 		visibility: hidden;
 		transition: fill-opacity $t;
 	}
@@ -97,9 +97,15 @@ export default {
 	}
 }
 
-.nj-muni-map__map-container--translucent {
+.nj-muni-map__map-container--opaque-muni {
+	.nj-muni-map__muni {
+		fill-opacity: 1;		
+	}
+}
+.nj-muni-map__map-container--translucent-muni {
 	.nj-muni-map__muni {
 		fill-opacity: $poly-fill-opacity;		
 	}
 }
+
 </style>

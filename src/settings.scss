@@ -16,10 +16,11 @@ $poly-fill-opacity: 0.5;
 $transit-width: 0.8px;
 $railroad-color: #4f5efc;
 $highway-color: #d34444;
+$county-color: #3f3f3f;
 
 // classes
 $timePeriods: 'old', 'interwar', 'postwar', 'liberal', 'reagan', 'contemporary';
-$transitModes: 'railroad', 'highway';
+$transitModes: 'railroad', 'highway', 'county';
 
 // transition time
 $t: 0.2s;
@@ -29,3 +30,6 @@ $chart-width: 250px;
 $chart-height: 200px;
 $bar-color: #a769a7;
 $bar-width: 30px;
+
+// fonts
+$font-size-sm: 10pt;

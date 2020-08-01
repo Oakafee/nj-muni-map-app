@@ -8,6 +8,7 @@
 				<h2>by Time Period </h2>
 				<BuildingLegend />
 				<TransitToggle />
+				<p><a href="https://nj-municipalities-map.s3.us-east-2.amazonaws.com/NJ-development-jesse-fried.pdf" target="_blank">More info about the data</a> </p>
 			</div>
 			<div class="nj-muni-map__legend-right">
 				<PeriodSlider />
@@ -46,7 +47,7 @@ export default {
 		padding-right: 2 * $spacing-lg;
 	}
 	&__right-pane {
-		flex: 1 0 auto;
+		flex: 0 1 auto;
 		padding-top: $spacing;
 	}
 	&__legend {

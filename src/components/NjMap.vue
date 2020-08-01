@@ -1,5 +1,5 @@
 <template>
-  <div :class="[containerClass, activePeriodClass, railroadVisibleClass, highwayVisibleClass, muniTranslucentClass]">
+  <div :class="[containerClass, activePeriodClass, railroadVisibleClass, highwayVisibleClass, countyVisibleClass, muniTranslucentClass]">
 	<p class="nj-muni-map__loading" v-if="mapLoading">Loading...</p>
 	<div id="njMap" :class="mapClass"></div>
   </div>
@@ -27,7 +27,7 @@ export default {
 		}).addTo(this.njMap);
 	},
 	computed: {
-		...mapState(['njMap', 'activePeriodId', 'mapLoading', 'transitVisibility', 'muniTranslucent']),
+		...mapState(['njMap', 'activePeriodId', 'mapLoading', 'transitVisibility', 'muniTranslucence']),
 		activePeriodClass() {
 			return `${this.containerClass}--${this.periods[this.activePeriodId]}`
 		},
@@ -42,9 +42,16 @@ export default {
 				return `${this.containerClass}--highway`
 			} else return null;
 		},
+		countyVisibleClass() {
+			if (this.transitVisibility['county']) {
+				return `${this.containerClass}--county`
+			} else return null;
+		},
 		muniTranslucentClass() {
-			if (this.muniTranslucent) {
-				return `${this.containerClass}--translucent`
+			if (this.muniTranslucence === 'opaque') {
+				return `${this.containerClass}--opaque-muni`
+			} else if (this.muniTranslucence === 'translucent') {
+				return `${this.containerClass}--translucent-muni`				
 			} else return null;
 		}
 	},

@@ -10,7 +10,8 @@ const store = new Vuex.Store({
 		activePeriodId: 5,
 		transitVisibility: {
 			'railroad': false,
-			'highway': false
+			'highway': false,
+			'county': false
 		},
 		activeMuniInfo: {
 			'mun_code': '',
@@ -18,9 +19,9 @@ const store = new Vuex.Store({
 			'pop2010': '',
 			'popden2010': '',
 			'sq_miles': '',
-			'time_periods': {},
+			'time_periods': {}
 		},
-		muniTranslucent: false,
+		muniTranslucence: 'opaque',
 	},
 	mutations: {
 		startNjMap(state, njMap) {
@@ -43,8 +44,8 @@ const store = new Vuex.Store({
 			state.activeMuniInfo['sq_miles'] = muniInfo['SQ_MILES'];
 			state.activeMuniInfo['time_periods'] = muniInfo['time_periods'];
 		},
-		toggleMuniOpacity(state) {
-			state.muniTranslucent = !state.muniTranslucent
+		toggleMuniOpacity(state, translucence) {
+			state.muniTranslucence = translucence
 		}
 	}
 });

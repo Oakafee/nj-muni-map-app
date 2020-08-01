@@ -1,10 +1,22 @@
 <template>
 	<div
 		class="nj-muni-map__building-legend"
-		:class="{ 'nj-muni-map__building-legend--translucent': muniTranslucent }">
-		<h4>Number of Buildings Built </h4>
+		:class="[opaqueClass, translucentClass]">
+		<h4>Buildings Built <br />
+		{{ periodNames[activePeriodId] }}
+		</h4>
 			<ul>
-				<li v-for="entry in entries" :key="entry.count">
+				<li class="nj-muni-map__building-legend-opacity-select">
+					<input type="radio" id="opaque" name="translucence" value="opaque" v-model="muniTranslucence" /><label for="opaque">Opaque </label>
+					<input type="radio" id="translucent" name="translucence" value="translucent" v-model="muniTranslucence" /><label for="translucent">Translucent </label>
+					<input type="radio" id="hidden" name="translucence" value="hidden" v-model="muniTranslucence" /><label for="hidden">Hidden </label>
+				</li>
+
+				<li
+					class="nj-muni-map__building-legend-entry"
+					v-for="entry in entries"
+					:key="entry.count"
+				>
 					<svg version="1.2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-labelledby="title" role="img" width="18" height="18">
 						<title>Building color </title>
 						<rect width="18" height="18" :style="{ fill:entry.color}" />
@@ -12,33 +24,43 @@
 					</svg>
 					{{ entry.count }}
 				</li>
-				<li><input type="checkbox" id="translucent" name="translucent" v-model="muniTranslucence" /><label for="translucent">Make translucent </label></li>
 			</ul>
 	</div>
 </template>
 
 <script>
-import constants from '../constants';
 import {mapState} from 'vuex';
+import constants from '../constants';
 import store from '../store';
 
 export default {
 	name: 'BuildingLegend',
 	data() {
 		return {
-			entries: constants.BUILDING_COLORS
+			entries: constants.BUILDING_COLORS,
+			periodNames: constants.TIME_PERIODS_PRETTY
 		}
 	},
 	computed: {
-		...mapState(['muniTranslucent']),
+		...mapState(['activePeriodId']),
 		muniTranslucence: {
 			get() {
-				return this.muniTranslucent
+				return store.state.muniTranslucence
 			},
-			set() {
-				store.commit('toggleMuniOpacity')
+			set(muniTranslucence) {
+				store.commit('toggleMuniOpacity', muniTranslucence)
 			}
 		},
+		opaqueClass() {
+			if(this.muniTranslucence === 'opaque') {
+				return `${constants.BUILDING_LEGEND_CLASS}--opaque`
+			} else return null
+		},
+		translucentClass() {
+			if(this.muniTranslucence === 'translucent') {
+				return `${constants.BUILDING_LEGEND_CLASS}--translucent`
+			} else return null
+		}
 	}	
 }
 </script>
@@ -49,7 +71,7 @@ export default {
 .nj-muni-map {
 	&__building-legend {
 		padding: $spacing 0;
-		li {
+		&-entry {
 			padding-bottom: $spacing / 2;
 		}
 		svg {
@@ -58,15 +80,22 @@ export default {
 		rect {
 			stroke: $poly-stroke-color;
 			stroke-width: $poly-stroke-width;
+			fill-opacity: 0;
 			transition: fill-opacity $t;
-		}
-		label {
-			padding: $spacing;
 		}
 		&--translucent {
 			rect {
 				fill-opacity: $poly-fill-opacity;
 			}
+		}
+		&--opaque {
+			rect {
+				fill-opacity: 1;
+			}
+		}
+		&-opacity-select {
+			font-size: $font-size-sm;
+			padding-bottom: $spacing * 1.5;
 		}
 	}
 }

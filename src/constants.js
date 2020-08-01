@@ -3,6 +3,7 @@ export default {
 	MUNI_FILENAME: 'MuniDataAll.json',
 	RAILROAD_FILENAME: 'njrr.geojson',
 	HIGHWAY_FILENAME: 'njhighways.geojson',
+	COUNTY_FILENAME: 'njcounties.geojson',
 	MAP_TITLE: 'njMap',
 	MAP_DEFAULT_OPTIONS: {
 		center: [40.2, -74.65],
@@ -50,6 +51,7 @@ export default {
 	MAP_CLASS: 'nj-muni-map__map',
 	POLY_CLASS: 'nj-muni-map__muni',
 	TRANSIT_CLASS: 'nj-muni-map__transit',
+	BUILDING_LEGEND_CLASS: 'nj-muni-map__building-legend',
 	CHART_MAX_BUILDINGS: 16000,
 	CHART_HEIGHT_PX: 200,
 }

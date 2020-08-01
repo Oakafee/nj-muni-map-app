@@ -1,11 +1,8 @@
 <template>
   <ul class="nj-muni-map__transit-toggle">
-	<li>Add to map: </li>
-	<li><em>County boundaries </em></li>
 	<li @click.once="getTransitLayer('railroad')"><input type="checkbox" id="railroad" name="railroad" v-model="showRailroad" /><label for="railroad">Railroads (current NJ Transit)</label></li>
 	<li @click.once="getTransitLayer('highway')"><input type="checkbox" id="highway" name="highway" v-model="showHighway" /><label for="highway">Highways (current) </label></li>
-	<li>RR visible: {{ transitVisibility['railroad'] }} </li>
-	<li>Highway visible: {{ transitVisibility['highway'] }} </li>
+	<li @click.once="getTransitLayer('county')"><input type="checkbox" id="county" name="county" v-model="showCounty" /><label for="county">County boundaries </label></li>
   </ul>
 </template>
 
@@ -22,11 +19,13 @@ export default {
 		return {
 			transitLayers: {
 				'railroad': {},
-				'highway': {}
+				'highway': {},
+				'county': {}
 			},
 			apiUrls: {
 				'railroad': `${constants.BASE_API_URL}${constants.RAILROAD_FILENAME}`,
-				'highway':`${constants.BASE_API_URL}${constants.HIGHWAY_FILENAME}`
+				'highway':`${constants.BASE_API_URL}${constants.HIGHWAY_FILENAME}`,
+				'county': `${constants.BASE_API_URL}${constants.COUNTY_FILENAME}`,
 			},
 		}
 	},
@@ -46,6 +45,14 @@ export default {
 			},
 			set() {
 				this.toggleTransit('highway');
+			}			
+		},
+		showCounty: {
+			get() {
+				return this.transitVisibility['county']
+			},
+			set() {
+				this.toggleTransit('county');
 			}			
 		}
 	},
@@ -73,8 +80,8 @@ export default {
 				'transitType': transitType,
 				'visible': !this.transitVisibility[transitType]
 			});
-		}
-	}
+		},
+	},
 }
 </script>
 
@@ -99,6 +106,11 @@ export default {
 		&--highway {
 			stroke: $highway-color;
 			stroke-width: $transit-width;
+		}
+		&--county {
+			stroke: $county-color;
+			stroke-width: $transit-width;
+			fill: none;
 		}
 	}
 }
