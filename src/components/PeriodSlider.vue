@@ -12,6 +12,7 @@ import axios from 'axios';
 import L from 'leaflet';
 import {mapState} from 'vuex';
 import store from '../store';
+import functions from '../functions';
 import constants from '../constants'
 
 export default {
@@ -19,7 +20,7 @@ export default {
 	data() {
 		return {
 			periodNames: constants.TIME_PERIODS_PRETTY,
-			buildingLayers: {}
+			buildingMapLayer: {}
 		}
 	},
 	computed: {
@@ -34,30 +35,29 @@ export default {
 		}
 	},
 	methods: {
-		displayMuniData(muniData) {
-			constants.TIME_PERIODS.forEach((period, index) => {
-				this.buildingLayers[index] = L.geoJSON(muniData, {
-					style: feature => {
-						const buildNo = feature.properties.time_periods[period];
-						let polyStyles = {
-							'className': `${constants.POLY_CLASS} ${constants.POLY_CLASS}--${period} ${constants.POLY_CLASS}--${feature.properties.MUN_CODE}`
-						};
-						
-						constants.BUILDING_COLORS.forEach(item => {
-							if (buildNo >= item.count) {
-								// >= 0 includes munis that have no data
-								polyStyles['fillColor'] = item.color
-							}
-						});
-						return polyStyles
-					},
-					onEachFeature: (feature, layer) => {
-						// layer.bindPopup(feature.properties.NAME);
-						layer.on('click', () => {
-							store.commit('selectMuni', feature.properties);
-						})
-					},
-				}).addTo(this.njMap);
+		displayMunis(muniData) {
+			const polyClass = { 'className': constants.POLY_CLASS };
+			this.buildingMapLayer = L.geoJSON(muniData, {
+				style: () => polyClass,
+				onEachFeature: (feature, layer) => {
+					layer.on('click', () => {
+						store.commit('selectMuni', feature.properties);
+					})
+				},
+			}).addTo(this.njMap);
+			this.displayPeriodData();
+		},
+		displayPeriodData() {
+			constants.TIME_PERIODS.forEach((period) => {
+				this.buildingMapLayer.eachLayer((layer) => {
+					const periodClass = `${constants.POLY_CLASS}--${period}`;
+					const buildingCount = layer.feature.properties.time_periods[period];
+					const scaleLevel = functions.calcLegendLevel(buildingCount, constants.BUILDING_LEVELS);
+					const countClass = `${constants.POLY_CLASS}--${period}-${scaleLevel}`;
+					
+					layer._path.classList.add(periodClass);
+					layer._path.classList.add(countClass);
+				});				
 			});
 		}
 	},
@@ -66,7 +66,7 @@ export default {
 		store.commit('changeLoadingState', true);
 		axios.get(`${constants.BASE_API_URL}${constants.MUNI_FILENAME}`)
 			.then((response) => {
-				_this.displayMuniData(response.data);
+				_this.displayMunis(response.data);
 				store.commit('changeLoadingState', false);
 		});
 	}
@@ -93,6 +93,27 @@ export default {
 	.nj-muni-map__map-container--#{$period} {
 		.nj-muni-map__muni--#{$period} {
 			visibility: visible;
+		}
+		.nj-muni-map__muni--#{$period}-0 {
+			fill: white;
+		}
+		.nj-muni-map__muni--#{$period}-250 {
+			fill: #f1e6f1;
+		}
+		.nj-muni-map__muni--#{$period}-500 {
+			fill: #e2cde2;
+		}
+		.nj-muni-map__muni--#{$period}-1000 {
+			fill: #d3b4d3;
+		}
+		.nj-muni-map__muni--#{$period}-2000 {
+			fill: #c59bc5;
+		}
+		.nj-muni-map__muni--#{$period}-4000 {
+			fill: #b682b6;
+		}
+		.nj-muni-map__muni--#{$period}-8000 {
+			fill: #a769a7;
 		}
 	}
 }

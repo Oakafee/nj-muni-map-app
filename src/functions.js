@@ -1,8 +1,13 @@
-import axios from 'axios';
-import store from './store.js';
-import constants from './constants';
-//import router from './router.js';
-
 export default {
-	something() {}
+	something() {},
+	calcLegendLevel(value, levels) {
+		// paramaters must be numbers
+		let level = 0;
+		levels.forEach((threshold) => {
+			if (value >= threshold) {
+				level = threshold
+			}
+		});
+		return level;
+	}
 }
