@@ -22,7 +22,8 @@ export default {
 	MAP_CLASS: 'nj-muni-map__map',
 	POLY_CLASS: 'nj-muni-map__muni',
 	TRANSIT_CLASS: 'nj-muni-map__transit',
-	BUILDING_LEGEND_CLASS: 'nj-muni-map__building-legend',
+	MUNI_LEGEND_CLASS: 'nj-muni-map__muni-legend',
 	CHART_MAX_BUILDINGS: 16000,
 	CHART_HEIGHT_PX: 200,
+	POP_DENSITY_LEVELS: [0, 250, 500, 1000, 2000, 4000, 8000, 16000, 32000],
 }

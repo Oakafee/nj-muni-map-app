@@ -94,26 +94,10 @@ export default {
 		.nj-muni-map__muni--#{$period} {
 			visibility: visible;
 		}
-		.nj-muni-map__muni--#{$period}-0 {
-			fill: white;
-		}
-		.nj-muni-map__muni--#{$period}-250 {
-			fill: #f1e6f1;
-		}
-		.nj-muni-map__muni--#{$period}-500 {
-			fill: #e2cde2;
-		}
-		.nj-muni-map__muni--#{$period}-1000 {
-			fill: #d3b4d3;
-		}
-		.nj-muni-map__muni--#{$period}-2000 {
-			fill: #c59bc5;
-		}
-		.nj-muni-map__muni--#{$period}-4000 {
-			fill: #b682b6;
-		}
-		.nj-muni-map__muni--#{$period}-8000 {
-			fill: #a769a7;
+		@each $level, $color in $building-colors {
+			.nj-muni-map__muni--#{$period}-#{$level} {
+				fill: $color;
+			}
 		}
 	}
 }

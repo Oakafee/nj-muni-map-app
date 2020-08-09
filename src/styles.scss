@@ -4,7 +4,7 @@ body {
 	font-family: 'Georgia';
 }
 
-h1, h2, h3, h4, h5 {
+h1, h2, h3, h4, h5, h6 {
 	margin: 0 0 $spacing 0;
 	line-height: 1.2;
 }
@@ -25,7 +25,7 @@ h4, h5 {
 	font-size: 12pt;
 }
 
-h5 {
+h5, h6 {
 	font-weight: normal;
 }
 
@@ -33,4 +33,19 @@ ul {
 	list-style-type: none;
 	padding: 0;
 	margin: 0;
+}
+
+/* not sure where to put this */
+.nj-muni-map__muni-legend {
+	fill-opacity: 0;
+	&--translucent {
+		rect {
+			fill-opacity: $poly-fill-opacity;
+		}
+	}
+	&--opaque {
+		rect {
+			fill-opacity: 1;
+		}
+	}
 }

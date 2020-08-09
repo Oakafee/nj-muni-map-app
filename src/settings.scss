@@ -11,6 +11,8 @@ $map-width: 500px;
 $poly-stroke-color: black;
 $poly-stroke-width: 0.2px;
 $poly-fill-opacity: 0.5;
+$building-colors: ('0': white, '250': #f1e6f1, '500': #e2cde2, '1000': #d3b4d3, '2000': #c59bc5, '4000': #b682b6, '8000': #a769a7);
+$pop-density-colors: ('0': white, '250': #efdfdf, '500': #dfbfbf, '1000': #cf9f9f, '2000': #bf8080, '4000': #af6060, '8000': #9e4040, '16000': #8e2020, '32000': #7e0000);
 
 // lines
 $transit-width: 0.8px;
