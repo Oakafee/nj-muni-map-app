@@ -84,8 +84,9 @@ export default {
 		visibility: hidden;
 		transition: fill-opacity $t;
 	}
-	&__slider {
+	&__period-slider {
 		position: static;
+		/* is that needed? */
 	}
 }
 

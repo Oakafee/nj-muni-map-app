@@ -18,7 +18,7 @@ export default {
 	MAP_TILE_2_ATTRIBUTION: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS...and the GIS User Community',
 	BUILDING_LEVELS: [0, 250, 500, 1000, 2000, 4000, 8000],
 	TIME_PERIODS: ['old', 'interwar', 'postwar', 'liberal', 'reagan', 'contemporary'],
-	TIME_PERIODS_PRETTY: ['Old (before 1918)', 'Interwar (1919-1945)', 'Postwar (1946-1961)', 'Sixties and Seventies (1962-1981)', 'Reagan Era (1982-1991)', 'Contemporary (1992-2019)'],
+	TIME_PERIODS_PRETTY: ['Old (before 1918)', 'Interwar (1919-1945)', 'Postwar (1946-1961)', 'Sixties/Seventies (1962-1981)', 'Reagan Era (1982-1991)', 'Contemporary (1992-2019)'],
 	MAP_CLASS: 'nj-muni-map__map',
 	POLY_CLASS: 'nj-muni-map__muni',
 	TRANSIT_CLASS: 'nj-muni-map__transit',
@@ -26,4 +26,5 @@ export default {
 	CHART_MAX_BUILDINGS: 16000,
 	CHART_HEIGHT_PX: 200,
 	POP_DENSITY_LEVELS: [0, 250, 500, 1000, 2000, 4000, 8000, 16000, 32000],
+	SQ_MILES_DECIMALS: 1
 }

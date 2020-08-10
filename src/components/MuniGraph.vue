@@ -2,13 +2,20 @@
 	<div class="nj-muni-graph">
 		<div v-if="activeMuniInfo.name">
 			<h4 class="nj-muni-graph__title">{{ activeMuniInfo.name }} </h4>
-			<ul class="nj-muni-graph__muni-info">
-				<li>Area: {{ activeMuniInfo.sq_miles}} mi<sup>2</sup></li>
-				<li>Population (2010): {{ activeMuniInfo.pop2010 }} </li>
-				<li>Pop density: {{ activeMuniInfo.popden2010 }} people/mi
-					<sup>2</sup>
-				</li>
-			</ul>
+			<table class="nj-muni-graph__muni-info">
+				<tr>
+					<td>Area: </td>
+					<td>{{ roundedArea }} mi<sup>2</sup></td>
+				</tr>
+				<tr>
+					<td>Population (2010): </td>
+					<td>{{ activeMuniInfo.pop2010 }} </td>
+				</tr>
+				<tr>
+					<td>Pop density: </td>
+					<td>{{ activeMuniInfo.popden2010 }} people/mi<sup>2</sup> </td>
+				</tr>
+			</table>
 			<svg version="1.2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="nj-muni-graph__y-axis" aria-labelledby="title" role="img">
 					<title id="title">Graph of building built over time by municipality</title>
 				<g class="nj-muni-graph__y-grid">
@@ -75,6 +82,9 @@ export default {
 			return this.buildingData.map(x =>
 				x / constants.CHART_MAX_BUILDINGS * constants.CHART_HEIGHT_PX
 			);
+		},
+		roundedArea() {
+			return Number.parseFloat(this.activeMuniInfo.sq_miles).toFixed(constants.SQ_MILES_DECIMALS);
 		}
 	}
 }
@@ -139,7 +149,7 @@ export default {
 		transform: rotate(65deg);
 	}
 	&__x-label {
-		width: 125px;
+		width: 150px;
 		&--active {
 			font-weight: bold;
 		}
@@ -148,6 +158,7 @@ export default {
 		font-style: italic;
 	}
 	&__muni-info {
+		width: 100%;
 		text-align: right;
 		font-size: $font-size-sm;
 	}
