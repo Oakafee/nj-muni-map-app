@@ -1,5 +1,5 @@
 <template>
-  <div :class="[containerClass, activePeriodClass, railroadVisibleClass, highwayVisibleClass, countyVisibleClass, muniTranslucentClass]">
+  <div :class="[containerClass, activePeriodClass, metricClass, railroadVisibleClass, highwayVisibleClass, countyVisibleClass, muniTranslucentClass]">
 	<p class="nj-muni-map__loading" v-if="mapLoading">Loading...</p>
 	<div id="njMap" :class="mapClass"></div>
   </div>
@@ -16,8 +16,7 @@ export default {
 	data() {
 		return {
 			mapClass: constants.MAP_CLASS,
-			containerClass: `${constants.MAP_CLASS}-container`,
-			periods: constants.TIME_PERIODS,
+			containerClass: `${constants.MAP_CLASS}-container`
 		}
 	},
 	mounted() {
@@ -27,9 +26,12 @@ export default {
 		}).addTo(this.njMap);
 	},
 	computed: {
-		...mapState(['njMap', 'activePeriodId', 'mapLoading', 'transitVisibility', 'muniTranslucence']),
+		...mapState(['njMap', 'activePeriodId', 'activeMetricId', 'mapLoading', 'transitVisibility', 'muniTranslucence']),
 		activePeriodClass() {
-			return `${this.containerClass}--${this.periods[this.activePeriodId]}`
+			return `${this.containerClass}--${constants.TIME_PERIODS[this.activePeriodId]}`
+		},
+		metricClass() {
+			return `${this.containerClass}--${constants.METRICS[this.activeMetricId]}`
 		},
 		// this is not very efficient. how can I do it better?
 		railroadVisibleClass() {

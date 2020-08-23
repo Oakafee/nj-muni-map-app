@@ -6,7 +6,7 @@
 			<div class="nj-muni-map__legend-left">
 				<h1>Development of New Jersey's Municipalities </h1>
 				<h2>by Time Period </h2>
-				<BuildingLegend />
+				<MuniLegend />
 				<TransitToggle />
 				<p><a href="https://nj-municipalities-map.s3.us-east-2.amazonaws.com/NJ-development-jesse-fried.pdf" target="_blank">More info about the data</a> </p>
 			</div>
@@ -24,12 +24,12 @@ import NjMap from './components/NjMap.vue';
 import PeriodSlider from './components/PeriodSlider.vue';
 import MuniGraph from './components/MuniGraph.vue';
 import TransitToggle from './components/TransitToggle.vue';
-import BuildingLegend from './components/BuildingLegend.vue';
+import MuniLegend from './components/MuniLegend.vue';
 
 export default {
 	name: 'App',
 	components: {
-		NjMap, PeriodSlider, MuniGraph, TransitToggle, BuildingLegend
+		NjMap, PeriodSlider, MuniGraph, TransitToggle, MuniLegend
 	}
 }
 </script>

@@ -22,6 +22,7 @@ const store = new Vuex.Store({
 			'time_periods': {}
 		},
 		muniTranslucence: 'opaque',
+		activeMetricId: 0
 	},
 	mutations: {
 		startNjMap(state, njMap) {
@@ -46,6 +47,9 @@ const store = new Vuex.Store({
 		},
 		toggleMuniOpacity(state, translucence) {
 			state.muniTranslucence = translucence
+		},
+		switchMetric(state, metricId) {
+			state.activeMetricId = metricId;
 		}
 	}
 });

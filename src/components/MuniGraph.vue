@@ -25,10 +25,10 @@
 					<line x1="45" x2="50" y1="150" y2="150"></line>				
 				</g>
 				<g class="nj-muni-graph__y-label">
-					<text x="18" y="15">16,000</text>
-					<text x="18" y="65">12,000</text>
-					<text x="24" y="115">8,000</text>
-					<text x="24" y="165">4,000</text>
+					<text x="15" y="10">16,000</text>
+					<text x="13" y="60">12,000</text>
+					<text x="19" y="110">8,000</text>
+					<text x="19" y="160">4,000</text>
 				</g>
 				<g class="explanation">
 					<text x="0" y="0" transform="translate(12, 150) rotate(270)">Buildings Built</text>
@@ -96,7 +96,7 @@ export default {
 .nj-muni-graph {
 	padding-top: $spacing;
 	&__title {
-		margin-left: 100px;
+		text-align: center;
 		margin-bottom: $spacing;
 	}
 	&__y-axis {

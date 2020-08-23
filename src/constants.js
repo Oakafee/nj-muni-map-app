@@ -16,7 +16,6 @@ export default {
 	MAP_TILE_2_LAYER: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
 	MAP_TILE_ATTRIBUTION: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
 	MAP_TILE_2_ATTRIBUTION: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS...and the GIS User Community',
-	BUILDING_LEVELS: [0, 250, 500, 1000, 2000, 4000, 8000],
 	TIME_PERIODS: ['old', 'interwar', 'postwar', 'liberal', 'reagan', 'contemporary'],
 	TIME_PERIODS_PRETTY: ['Old (before 1918)', 'Interwar (1919-1945)', 'Postwar (1946-1961)', 'Sixties/Seventies (1962-1981)', 'Reagan Era (1982-1991)', 'Contemporary (1992-2019)'],
 	MAP_CLASS: 'nj-muni-map__map',
@@ -25,6 +24,15 @@ export default {
 	MUNI_LEGEND_CLASS: 'nj-muni-map__muni-legend',
 	CHART_MAX_BUILDINGS: 16000,
 	CHART_HEIGHT_PX: 200,
-	POP_DENSITY_LEVELS: [0, 250, 500, 1000, 2000, 4000, 8000, 16000, 32000],
+	METRICS: ['building-period', 'building-cumulative', 'building-density-period', 'building-density-cumulative', 'pop-density'],
+	METRICS_PRETTY: ['Buildings Built by Time Period', 'Buildings Built, Cumulative', 'Building Density', 'Building Density, Cumulative', 'Population Density (2010)'],
+	METRICS_UNITS: ['buildings built', 'buildings built', 'buildings per square mile', 'buildings per square mile', 'people per square mile'],
+	SCALE_LEVELS: {
+		'building-period': [0, 250, 500, 1000, 2000, 4000, 8000],
+		'building-cumulative': [0, 250, 500, 1000, 2000, 4000, 8000],
+		'building-density-period': [0, 125, 250, 500, 1000, 2000, 4000],
+		'building-density-cumulative': [0, 250, 500, 1000, 2000, 4000, 8000],
+		'pop-density': [0, 250, 500, 1000, 2000, 4000, 8000, 16000, 32000],
+	},
 	SQ_MILES_DECIMALS: 1
 }
