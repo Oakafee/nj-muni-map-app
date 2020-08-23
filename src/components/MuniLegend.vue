@@ -7,8 +7,7 @@
 			<MuniLegendLine
 				v-for="level in metricScaleLevels"
 				:key="level"
-				:svgClass="`nj-muni-map__building-legend-line--${level}`"
-				:label="level"
+				:scaleLevel="level"
 			/>
 			<li>{{ metricUnits[activeMetricId] }}</li>
 			<li>{{ unitExplanationText }}</li>
@@ -35,7 +34,6 @@ export default {
 		return {
 			periodNames: constants.TIME_PERIODS_PRETTY,
 			metricUnits: constants.METRICS_UNITS,
-			scaleLevels: constants.SCALE_LEVELS,
 			metrics: constants.METRICS
 		}
 	},
@@ -60,7 +58,7 @@ export default {
 			} else return null
 		},
 		metricScaleLevels() {
-			return this.scaleLevels[this.metrics[this.activeMetricId]]
+			return constants.SCALE_LEVELS[this.metrics[this.activeMetricId]]
 		},
 		unitExplanationText() {
 			if (this.activeMetricId == 0 || this.activeMetricId == 2) {
@@ -83,6 +81,14 @@ export default {
 
 .nj-muni-map__muni-legend-list {
 	margin: $spacing 0;
+}
+
+@each $metric, $scaleColorsMap in $metrics {
+	@each $level, $color in $scaleColorsMap {
+		.nj-muni-map__muni-legend-line--#{$metric}--#{$level} {
+			fill: $color;
+		}
+	}
 }
 
 </style>
