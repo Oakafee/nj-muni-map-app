@@ -2,7 +2,7 @@
   <div class="nj-muni-map__period-slider">
 	<h3 v-if="popDensity">2010 </h3>
 	<h3 v-else>{{ periodNames[activePeriodId] }} </h3>
-	<p v-if="popDensity">Pop density is data is just for 2010 </p>
+	<p v-if="popDensity">Pop density data is just for 2010 </p>
 	<p v-else>Select time period: </p>
 	<input
 		type="range"
@@ -68,15 +68,28 @@ export default {
 	}
 }
 
+/* pop density doesn't have time periods associated with the data like the other metrics */
 @each $metric, $scaleColorsMap in $metrics {
-	@each $period in $timePeriods {
-		.nj-muni-map__map-container--#{$metric}.nj-muni-map__map-container--#{$period} {
-			.nj-muni-map__muni--#{$period} {
-				visibility: visible;
-			}
+	@if $metric == 'pop-density' {
+		.nj-muni-map__map-container--pop-density {
 			@each $level, $color in $scaleColorsMap {
-				.nj-muni-map__muni--#{$metric}--#{$period}-#{$level} {
+				.nj-muni-map__muni--pop-density-#{$level} {
 					fill: $color;
+					visibility: visible;
+				}
+			}
+		}		
+	}
+	@else {
+		@each $period in $timePeriods {
+			.nj-muni-map__map-container--#{$metric}.nj-muni-map__map-container--#{$period} {
+				.nj-muni-map__muni--#{$period} {
+					visibility: visible;
+				}
+				@each $level, $color in $scaleColorsMap {
+					.nj-muni-map__muni--#{$metric}--#{$period}-#{$level} {
+						fill: $color;
+					}
 				}
 			}
 		}

@@ -88,7 +88,7 @@ export default {
 			this.buildingMapLayer.eachLayer((layer) => {
 				const metricValue = functions.calcMetricValue(layer, null, activeMetric);
 				const scaleLevel = functions.calcLegendLevel(metricValue, constants.SCALE_LEVELS[activeMetric]);
-				const valueClass = `${constants.POLY_CLASS}--${activeMetric}--contemporary-${scaleLevel}`;
+				const valueClass = `${constants.POLY_CLASS}--pop-density-${scaleLevel}`;
 				
 				layer._path.classList.add(valueClass);
 			});
