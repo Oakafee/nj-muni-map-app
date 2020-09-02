@@ -28,10 +28,10 @@ export default {
 	METRICS_PRETTY: ['Buildings Built by Time Period', 'Buildings Built, Cumulative', 'Building Density', 'Building Density, Cumulative', 'Population Density (2010)'],
 	METRICS_UNITS: ['buildings built', 'buildings built', 'buildings per square mile', 'buildings per square mile', 'people per square mile'],
 	SCALE_LEVELS: {
-		'building-period': [0, 250, 500, 1000, 2000, 4000, 8000],
-		'building-cumulative': [0, 250, 500, 1000, 2000, 4000, 8000],
-		'building-density-period': [0, 125, 250, 500, 1000, 2000, 4000],
-		'building-density-cumulative': [0, 250, 500, 1000, 2000, 4000, 8000],
+		'building-period': [0, 250, 500, 1000, 2000, 4000, 8000, 16000],
+		'building-cumulative': [0, 250, 500, 1000, 2000, 4000, 8000, 16000],
+		'building-density-period': [0, 125, 250, 500, 1000, 2000, 4000, 8000],
+		'building-density-cumulative': [0, 125, 250, 500, 1000, 2000, 4000, 8000],
 		'pop-density': [0, 250, 500, 1000, 2000, 4000, 8000, 16000, 32000],
 	},
 	SQ_MILES_DECIMALS: 1
