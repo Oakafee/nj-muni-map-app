@@ -75,7 +75,7 @@ export default {
 			}
 			constants.TIME_PERIODS.forEach((period) => {
 				this.buildingMapLayer.eachLayer((layer) => {
-					const metricValue = functions.calcMetricValue(layer, period, activeMetric);
+					const metricValue = functions.calcMetricValue(layer.feature.properties, period, activeMetric);
 					const scaleLevel = functions.calcLegendLevel(metricValue, constants.SCALE_LEVELS[activeMetric]);
 					const valueClass = `${constants.POLY_CLASS}--${activeMetric}--${period}-${scaleLevel}`;
 					
@@ -86,7 +86,7 @@ export default {
 		addPopDensityData(activeMetric) {
 		// this one is a special case because there are no time periods (it's just 2010 data)
 			this.buildingMapLayer.eachLayer((layer) => {
-				const metricValue = functions.calcMetricValue(layer, null, activeMetric);
+				const metricValue = functions.calcMetricValue(layer.feature.properties, null, activeMetric);
 				const scaleLevel = functions.calcLegendLevel(metricValue, constants.SCALE_LEVELS[activeMetric]);
 				const valueClass = `${constants.POLY_CLASS}--pop-density-${scaleLevel}`;
 				

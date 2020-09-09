@@ -13,12 +13,13 @@ const store = new Vuex.Store({
 			'highway': false,
 			'county': false
 		},
+		// the ALL CAPS is to match how the data comes in from the source JSON	
 		activeMuniInfo: {
-			'mun_code': '',
-			'name': '',
-			'pop2010': '',
-			'popden2010': '',
-			'sq_miles': '',
+			'MUN_CODE': '',
+			'NAME': '',
+			'POP2010': '',
+			'POPDEN2010': '',
+			'SQ_MILES': '',
 			'time_periods': {}
 		},
 		muniTranslucence: 'opaque',
@@ -38,11 +39,11 @@ const store = new Vuex.Store({
 			state.transitVisibility[payload.transitType] = payload.visible;
 		},
 		selectMuni(state, muniInfo) {
-			state.activeMuniInfo['mun_code'] = muniInfo['MUN_CODE'];
-			state.activeMuniInfo['name'] = muniInfo['NAME'];
-			state.activeMuniInfo['pop2010'] = muniInfo['POP2010'];
-			state.activeMuniInfo['popden2010'] = muniInfo['POPDEN2010'];
-			state.activeMuniInfo['sq_miles'] = muniInfo['SQ_MILES'];
+			state.activeMuniInfo['MUN_CODE'] = muniInfo['MUN_CODE'];
+			state.activeMuniInfo['NAME'] = muniInfo['NAME'];
+			state.activeMuniInfo['POP2010'] = muniInfo['POP2010'];
+			state.activeMuniInfo['POPDEN2010'] = muniInfo['POPDEN2010'];
+			state.activeMuniInfo['SQ_MILES'] = muniInfo['SQ_MILES'];
 			state.activeMuniInfo['time_periods'] = muniInfo['time_periods'];
 		},
 		toggleMuniOpacity(state, translucence) {

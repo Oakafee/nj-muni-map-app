@@ -23,6 +23,7 @@ export default {
 	TRANSIT_CLASS: 'nj-muni-map__transit',
 	MUNI_LEGEND_CLASS: 'nj-muni-map__muni-legend',
 	CHART_MAX_BUILDINGS: 16000,
+	CHART_MAX_BUILDING_DENSITY: 8000,
 	CHART_HEIGHT_PX: 200,
 	METRICS: ['building-period', 'building-cumulative', 'building-density-period', 'building-density-cumulative', 'pop-density'],
 	METRICS_PRETTY: ['Buildings Built by Time Period', 'Buildings Built, Cumulative', 'Building Density', 'Building Density, Cumulative', 'Population Density (2010)'],
@@ -34,5 +35,6 @@ export default {
 		'building-density-cumulative': [0, 125, 250, 500, 1000, 2000, 4000, 8000],
 		'pop-density': [0, 250, 500, 1000, 2000, 4000, 8000, 16000, 32000],
 	},
-	SQ_MILES_DECIMALS: 1
+	SQ_MILES_DECIMALS: 1,
+	BUILDING_DENSITY_DECIMALS: 1
 }

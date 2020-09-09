@@ -1,7 +1,7 @@
 <template>
 	<div class="nj-muni-graph">
-		<div v-if="activeMuniInfo.name">
-			<h4 class="nj-muni-graph__title">{{ activeMuniInfo.name }} </h4>
+		<div v-if="activeMuniInfo.NAME">
+			<h4 class="nj-muni-graph__title">{{ activeMuniInfo.NAME }} </h4>
 			<table class="nj-muni-graph__muni-info">
 				<tr>
 					<td>Area: </td>
@@ -9,52 +9,47 @@
 				</tr>
 				<tr>
 					<td>Population (2010): </td>
-					<td>{{ activeMuniInfo.pop2010 }} </td>
+					<td>{{ activeMuniInfo.POP2010 }} </td>
 				</tr>
 				<tr>
 					<td>Pop density: </td>
-					<td>{{ activeMuniInfo.popden2010 }} people/mi<sup>2</sup> </td>
+					<td>{{ activeMuniInfo.POPDEN2010 }} people/mi<sup>2</sup> </td>
 				</tr>
 			</table>
-			<svg version="1.2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="nj-muni-graph__y-axis" aria-labelledby="title" role="img">
-					<title id="title">Graph of building built over time by municipality</title>
-				<g class="nj-muni-graph__y-grid">
-					<line x1="45" x2="50" y1="0" y2="0"></line>
-					<line x1="45" x2="50" y1="50" y2="50"></line>
-					<line x1="45" x2="50" y1="100" y2="100"></line>
-					<line x1="45" x2="50" y1="150" y2="150"></line>				
-				</g>
-				<g class="nj-muni-graph__y-label">
-					<text x="15" y="10">16,000</text>
-					<text x="13" y="60">12,000</text>
-					<text x="19" y="110">8,000</text>
-					<text x="19" y="160">4,000</text>
-				</g>
-				<g class="explanation">
-					<text x="0" y="0" transform="translate(12, 150) rotate(270)">Buildings Built</text>
-				</g>
-			</svg>
-			<div class="nj-muni-graph__bar-container">
-				<div
-					class="nj-muni-graph__bar"
-					v-for="(barHeight, index) in barHeights"
-					:key="barHeight"
-					:style="{ height:`${barHeight}px` }"
-				>
-					<div class="nj-muni-graph__bar-number">{{ buildingData[index] }}</div>
+			<p>{{ buildingData[activePeriodId] }} {{ unit }} <br />
+			<small>{{ timePeriodsPretty[activePeriodId] }} period </small></p>
+			<div v-if="unit">
+				<XAxisBuilding v-if="unit=='buildings built'" />
+				<XAxisBuildDensity v-else-if="unit=='buildings per square mile'" />
+				<div class="nj-muni-graph__bar-container">
+					<div
+						class="nj-muni-graph__bar"
+						:class="(unit == 'building-density' ?
+							'nj-muni-graph__bar--build-density' :
+							'nj-muni-graph__bar--building'
+						)"
+						v-for="(barHeight, index) in barHeights"
+						:key="barHeight"
+						:style="{ height:`${barHeight}px` }"
+					>
+						<div class="nj-muni-graph__bar-number">{{ buildingData[index] }}</div>
+					</div>
+				</div>
+				<div class="nj-muni-graph__x-axis">
+					<div
+						class="nj-muni-graph__x-label-container"
+						v-for="(period, index) in timePeriodsPretty"
+						:key="period"
+					>
+						<div
+							class="nj-muni-graph__x-label"
+							:class="(index == activePeriodId) ? 'nj-muni-graph__x-label--active': ''"
+						>{{ period }} </div>
+					</div>
 				</div>
 			</div>
-			<div class="nj-muni-graph__x-axis">
-				<div
-					class="nj-muni-graph__x-label-container"
-					v-for="(period, index) in timePeriodsPretty"
-					:key="period"
-				>
-					<div
-						class="nj-muni-graph__x-label"
-						:class="(index == activePeriodId) ? 'nj-muni-graph__x-label--active': ''"
-					>{{ period }} </div>
-				</div>
+			<div v-else>
+				<p>No graph (population density data is only availble for the year 2010) </p>
 			</div>
 		</div>
 		<div class="nj-muni-graph__empty-message" v-else><p>Click a municipality on the map for a chart of its development over time </p></div>
@@ -63,10 +58,16 @@
 
 <script>
 import {mapState} from 'vuex';
+import functions from '../functions';
 import constants from '../constants';
+import XAxisBuilding from './XAxisBuilding';
+import XAxisBuildDensity from './XAxisBuildDensity';
 
 export default {
 	name: 'MuniGraph',
+	components: {
+		XAxisBuilding, XAxisBuildDensity
+	},
 	data() {
 		return {
 			timePeriodsPretty: constants.TIME_PERIODS_PRETTY,
@@ -74,18 +75,40 @@ export default {
 		}
 	},
 	computed: {
-		...mapState(['activeMuniInfo', 'activePeriodId']),
+		...mapState(['activeMuniInfo', 'activePeriodId', 'activeMetricId']),
+		activeMetric() {
+			return constants.METRICS[this.activeMetricId];
+		},
+		unit() {
+			return constants.METRICS_UNITS[this.activeMetricId];
+		},
 		buildingData() {
-			return Object.values(this.activeMuniInfo.time_periods);
+			if (this.activeMetric == 'pop-density') return null;
+			
+			let values = [];
+			
+			constants.TIME_PERIODS.forEach((period) => {
+				values.push(functions.calcMetricValue(this.activeMuniInfo, period, this.activeMetric));
+			});
+			if (this.unit == 'buildings per square mile') {
+				values = values.map(val =>
+					Number.parseFloat(val).toFixed(constants.BUILDING_DENSITY_DECIMALS)
+				);
+			}
+			return values;
+			//return Object.values(this.activeMuniInfo.time_periods);
 		},
 		barHeights() {
+			const max = this.unit == 'buildings per square mile' ? constants.CHART_MAX_BUILDING_DENSITY : constants.CHART_MAX_BUILDINGS;
+			
 			return this.buildingData.map(x =>
-				x / constants.CHART_MAX_BUILDINGS * constants.CHART_HEIGHT_PX
+				x / max * constants.CHART_HEIGHT_PX
 			);
 		},
 		roundedArea() {
-			return Number.parseFloat(this.activeMuniInfo.sq_miles).toFixed(constants.SQ_MILES_DECIMALS);
-		}
+			return Number.parseFloat(this.activeMuniInfo.SQ_MILES).toFixed(constants.SQ_MILES_DECIMALS);
+		},
+		
 	}
 }
 </script>
@@ -123,9 +146,14 @@ export default {
 	&__bar {
 		max-width: $bar-width;
 		height: 0px;
-		background-color: $bar-color;
 		flex: 1 0 auto;
 		transition: height $t;
+		&--building {
+			background-color: $bar-color-building;
+		}
+		&--build-density {
+			background-color: $bar-color-build-density;
+		}
 		&:hover .nj-muni-graph__bar-number {
 			opacity: 1;
 		}
