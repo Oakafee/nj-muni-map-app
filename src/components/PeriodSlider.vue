@@ -1,9 +1,5 @@
 <template>
   <div class="nj-muni-map__period-slider">
-	<h3 v-if="popDensity">2010 </h3>
-	<h3 v-else>{{ periodNames[activePeriodId] }} </h3>
-	<p v-if="popDensity">Pop density data is just for 2010 </p>
-	<p v-else>Select time period: </p>
 	<input
 		type="range"
 		id="periods"
@@ -13,6 +9,8 @@
 		v-model="activePeriodId"
 		:class="{ 'nj-muni-map__period-slider--disabled': popDensity }"
 	/>
+	<h4 v-if="popDensity" class="nj-muni-map__period-slider--disabled">Pop density data is for 2010 only </h4>
+	<h4 v-else>{{ periodName }}</h4>
   </div>
 </template>
 
@@ -23,11 +21,6 @@ import constants from '../constants'
 
 export default {
 	name: 'PeriodSlider',
-	data() {
-		return {
-			periodNames: constants.TIME_PERIODS_PRETTY
-		}
-	},
 	computed: {
 		...mapState(['activeMetricId']),
 		activePeriodId: {
@@ -40,7 +33,13 @@ export default {
 		},
 		popDensity() {
 			return this.activeMetricId == 4
+		},
+		periodName() {
+			return constants.TIME_PERIODS_PRETTY[this.activePeriodId]
 		}
+	},
+	mounted() {
+		this.activePeriodId = 5;
 	}
 }
 </script>
@@ -57,8 +56,8 @@ export default {
 		transition: fill-opacity $t;
 	}
 	&__period-slider {
-		position: static;
-		/* is position static needed? */
+		padding-bottom: 2*$spacing;
+		/* position: static; */
 		&--disabled {
 		/* I tried to use the disabled attribute but it wasn't working well with vue or looking ngood in firefox */
 			filter: grayscale(100%);

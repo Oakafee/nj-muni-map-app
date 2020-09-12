@@ -2,6 +2,7 @@
 
 body {
 	font-family: 'Georgia';
+	font-size: $font-size-default;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -10,23 +11,23 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-	font-size: 20pt;
-}
-
-h2 {
 	font-size: 16pt;
 }
 
+h2 {
+	font-size: $font-size-default;
+	margin-bottom: 0;
+}
+
 h3 {
-	font-size: 14pt;
-}
-
-h4, h5 {
-	font-size: 12pt;
-}
-
-h5, h6 {
+	font-size: $font-size-default;
 	font-weight: normal;
+}
+
+h4 {
+	font-size: $font-size-sm;
+	font-weight: normal;
+	margin-bottom: 0;
 }
 
 ul {

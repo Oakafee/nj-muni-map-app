@@ -1,8 +1,9 @@
 <template>
 	<div class="nj-muni-graph">
 		<div v-if="activeMuniInfo.NAME">
-			<h4 class="nj-muni-graph__title">{{ activeMuniInfo.NAME }} </h4>
-			<table class="nj-muni-graph__muni-info">
+			<h2 class="nj-muni-graph__title">{{ activeMuniInfo.NAME }} </h2>
+			<button @click="infoTableVisible = true" v-if="!infoTableVisible">Show more info </button>
+			<table class="nj-muni-graph__muni-info" v-if="infoTableVisible">
 				<tr>
 					<td>Area: </td>
 					<td>{{ roundedArea }} mi<sup>2</sup></td>
@@ -16,11 +17,10 @@
 					<td>{{ activeMuniInfo.POPDEN2010 }} people/mi<sup>2</sup> </td>
 				</tr>
 			</table>
-			<p>{{ buildingData[activePeriodId] }} {{ unit }} <br />
-			<small>{{ timePeriodsPretty[activePeriodId] }} period </small></p>
+			<p>{{ unitTitle }} <br />
+			<small>{{ unitSubtitle }}</small></p>
 			<div v-if="unit">
-				<XAxisBuilding v-if="unit=='buildings built'" />
-				<XAxisBuildDensity v-else-if="unit=='buildings per square mile'" />
+				<MuniGraphXAxis />
 				<div class="nj-muni-graph__bar-container">
 					<div
 						class="nj-muni-graph__bar"
@@ -60,22 +60,22 @@
 import {mapState} from 'vuex';
 import functions from '../functions';
 import constants from '../constants';
-import XAxisBuilding from './XAxisBuilding';
-import XAxisBuildDensity from './XAxisBuildDensity';
+import MuniGraphXAxis from './MuniGraphXAxis';
 
 export default {
 	name: 'MuniGraph',
 	components: {
-		XAxisBuilding, XAxisBuildDensity
+		MuniGraphXAxis
 	},
 	data() {
 		return {
 			timePeriodsPretty: constants.TIME_PERIODS_PRETTY,
-			bold: { fontWeight: 'bold' }
+			bold: { fontWeight: 'bold' },
+			infoTableVisible: false
 		}
 	},
 	computed: {
-		...mapState(['activeMuniInfo', 'activePeriodId', 'activeMetricId']),
+		...mapState(['activeMuniInfo', 'activePeriodId', 'activeMetricId', 'unitTitle', 'unitSubtitle']),
 		activeMetric() {
 			return constants.METRICS[this.activeMetricId];
 		},
@@ -83,8 +83,6 @@ export default {
 			return constants.METRICS_UNITS[this.activeMetricId];
 		},
 		buildingData() {
-			if (this.activeMetric == 'pop-density') return null;
-			
 			let values = [];
 			
 			constants.TIME_PERIODS.forEach((period) => {
@@ -99,7 +97,8 @@ export default {
 			//return Object.values(this.activeMuniInfo.time_periods);
 		},
 		barHeights() {
-			const max = this.unit == 'buildings per square mile' ? constants.CHART_MAX_BUILDING_DENSITY : constants.CHART_MAX_BUILDINGS;
+			const max = constants.CHART_SCALE_LEVELS[this.activeMetricId][3];
+			// the [3] is because each array of CHART_SCALE_LEVELS has four members, the last of which should be the maximum
 			
 			return this.buildingData.map(x =>
 				x / max * constants.CHART_HEIGHT_PX
@@ -107,8 +106,7 @@ export default {
 		},
 		roundedArea() {
 			return Number.parseFloat(this.activeMuniInfo.SQ_MILES).toFixed(constants.SQ_MILES_DECIMALS);
-		},
-		
+		}
 	}
 }
 </script>
@@ -120,7 +118,6 @@ export default {
 	padding-top: $spacing;
 	&__title {
 		text-align: center;
-		margin-bottom: $spacing;
 	}
 	&__y-axis {
 		height: 200px;
@@ -189,6 +186,7 @@ export default {
 		width: 100%;
 		text-align: right;
 		font-size: $font-size-sm;
+		line-height: 1;
 	}
 }
 </style>

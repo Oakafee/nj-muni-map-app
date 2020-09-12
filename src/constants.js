@@ -22,19 +22,29 @@ export default {
 	POLY_CLASS: 'nj-muni-map__muni',
 	TRANSIT_CLASS: 'nj-muni-map__transit',
 	MUNI_LEGEND_CLASS: 'nj-muni-map__muni-legend',
-	CHART_MAX_BUILDINGS: 16000,
-	CHART_MAX_BUILDING_DENSITY: 8000,
-	CHART_HEIGHT_PX: 200,
 	METRICS: ['building-period', 'building-cumulative', 'building-density-period', 'building-density-cumulative', 'pop-density'],
-	METRICS_PRETTY: ['Buildings Built by Time Period', 'Buildings Built, Cumulative', 'Building Density', 'Building Density, Cumulative', 'Population Density (2010)'],
-	METRICS_UNITS: ['buildings built', 'buildings built', 'buildings per square mile', 'buildings per square mile', 'people per square mile'],
-	SCALE_LEVELS: {
-		'building-period': [0, 250, 500, 1000, 2000, 4000, 8000, 16000],
-		'building-cumulative': [0, 250, 500, 1000, 2000, 4000, 8000, 16000],
-		'building-density-period': [0, 125, 250, 500, 1000, 2000, 4000, 8000],
-		'building-density-cumulative': [0, 125, 250, 500, 1000, 2000, 4000, 8000],
-		'pop-density': [0, 250, 500, 1000, 2000, 4000, 8000, 16000, 32000],
-	},
+	METRICS_PRETTY: ['Buildings Built by Time Period', 'Buildings Built, Cumulative', 'Building Density by Time Period', 'Building Density, Cumulative', 'Population Density (2010)'],
+	METRICS_UNITS: [
+		/*building-period*/['Buildings Built', 'during'],
+		/*building-cumulative*/['Buildings Built', 'through'],
+		/*building-density-period*/['Buildings per Sq. Mi', 'during'],
+		/*building-density-cumulative*/['Buildings per Sq. Mi', 'through'],
+		/*pop-density*/['People per Sq. Mi', ''],
+	],
+	LEGEND_SCALE_LEVELS: [
+		/*building-period*/[0, 250, 500, 1000, 2000, 4000, 8000, 16000],
+		/*building-cumulative*/[0, 250, 500, 1000, 2000, 4000, 8000, 16000],
+		/*building-density-period*/[0, 125, 250, 500, 1000, 2000, 4000, 8000],
+		/*building-density-cumulative*/[0, 125, 250, 500, 1000, 2000, 4000, 8000],
+		/*pop-density*/[0, 250, 500, 1000, 2000, 4000, 8000, 16000, 32000]
+	],
+	CHART_SCALE_LEVELS: [
+		/*building-period*/[4000, 8000, 12000, 16000],
+		/*building-cumulative*/[8000, 16000, 24000, 32000],
+		/*building-density-period*/[2000, 4000, 6000, 8000],
+		/*building-density-cumulative*/[4000, 8000, 12000, 16000],
+		/*pop-density*/[2000, 4000, 6000, 8000]
+	],
 	SQ_MILES_DECIMALS: 1,
 	BUILDING_DENSITY_DECIMALS: 1
 }

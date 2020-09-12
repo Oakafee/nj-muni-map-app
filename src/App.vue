@@ -4,14 +4,16 @@
 	<div class="nj-muni-map__right-pane">
 		<div class="nj-muni-map__legend">
 			<div class="nj-muni-map__legend-left">
-				<h1>Development of New Jersey's Municipalities </h1>
-				<h2>by Time Period </h2>
+				<h1>Development of New Jersey's Municipalities: </h1>
 				<MuniLegend />
 				<TransitToggle />
 				<p><a href="https://nj-municipalities-map.s3.us-east-2.amazonaws.com/NJ-development-jesse-fried.pdf" target="_blank">More info about the data</a> </p>
 			</div>
 			<div class="nj-muni-map__legend-right">
+				<MetricSelect />
 				<PeriodSlider />
+				<OpacitySelect />
+				<hr />
 				<MuniGraph />
 			</div>
 		</div>
@@ -22,6 +24,8 @@
 <script>
 import NjMap from './components/NjMap.vue';
 import PeriodSlider from './components/PeriodSlider.vue';
+import MetricSelect from './components/MetricSelect.vue';
+import OpacitySelect from './components/OpacitySelect.vue';
 import MuniGraph from './components/MuniGraph.vue';
 import TransitToggle from './components/TransitToggle.vue';
 import MuniLegend from './components/MuniLegend.vue';
@@ -29,7 +33,7 @@ import MuniLegend from './components/MuniLegend.vue';
 export default {
 	name: 'App',
 	components: {
-		NjMap, PeriodSlider, MuniGraph, TransitToggle, MuniLegend
+		NjMap, PeriodSlider, MetricSelect, OpacitySelect, MuniGraph, TransitToggle, MuniLegend
 	}
 }
 </script>

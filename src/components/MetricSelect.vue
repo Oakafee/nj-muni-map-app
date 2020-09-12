@@ -1,5 +1,5 @@
 <template>
-	<select class="nj-muni-map__metric-select" v-model="selectedMetricId">
+	<select class="nj-muni-map__metric-select" v-model="metricId">
 		<option
 			v-for="(metric, index) in metrics"
 			:key="index"
@@ -30,12 +30,12 @@ export default {
 	},
 	computed: {
 		...mapState(['njMap']),
-		selectedMetricId: {
-			set(metricId) {
-				store.commit('switchMetric', metricId);
-				if (!this.metricsAdded.includes(metricId)) {
+		metricId: {
+			set(id) {
+				store.commit('switchMetric', id);
+				if (!this.metricsAdded.includes(id)) {
 					this.addMuniData();
-					this.metricsAdded.push(metricId);
+					this.metricsAdded.push(id);
 				}
 			},
 			get() {
@@ -67,27 +67,30 @@ export default {
 		},
 		addMuniData() {
 			// should I put in loading state? how long will this end up taking for people?
-			const activeMetric = constants.METRICS[this.selectedMetricId];
 			
-			if (activeMetric === 'pop-density') {
-				this.addPopDensityData(activeMetric);
+			if (this.metricId == 4 /* pop-density */) {
+				this.addPopDensityData();
 				return;
 			}
 			constants.TIME_PERIODS.forEach((period) => {
 				this.buildingMapLayer.eachLayer((layer) => {
-					const metricValue = functions.calcMetricValue(layer.feature.properties, period, activeMetric);
-					const scaleLevel = functions.calcLegendLevel(metricValue, constants.SCALE_LEVELS[activeMetric]);
-					const valueClass = `${constants.POLY_CLASS}--${activeMetric}--${period}-${scaleLevel}`;
+					const metricValue =
+						functions.calcMetricValue(layer.feature.properties, period, this.metricId);
+					const scaleLevel =
+						functions.calcLegendLevel(metricValue, constants.LEGEND_SCALE_LEVELS[this.metricId]);
+					const valueClass = `${constants.POLY_CLASS}--${constants.METRICS[this.metricId]}--${period}-${scaleLevel}`;
 					
 					layer._path.classList.add(valueClass);
 				});
 			})
 		},
-		addPopDensityData(activeMetric) {
+		addPopDensityData() {
 		// this one is a special case because there are no time periods (it's just 2010 data)
 			this.buildingMapLayer.eachLayer((layer) => {
-				const metricValue = functions.calcMetricValue(layer.feature.properties, null, activeMetric);
-				const scaleLevel = functions.calcLegendLevel(metricValue, constants.SCALE_LEVELS[activeMetric]);
+				const metricValue =
+					functions.calcMetricValue(layer.feature.properties, null, this.metricId);
+				const scaleLevel =
+					functions.calcLegendLevel(metricValue, constants.LEGEND_SCALE_LEVELS[this.metricId]);
 				const valueClass = `${constants.POLY_CLASS}--pop-density-${scaleLevel}`;
 				
 				layer._path.classList.add(valueClass);
@@ -102,6 +105,7 @@ export default {
 				_this.displayMunis(response.data);
 				store.commit('changeLoadingState', false);
 		});
+		this.metricId = 0;
 	}
 }
 </script>
@@ -111,7 +115,7 @@ export default {
 
 .nj-muni-map__metric-select {
 	padding: $spacing/2;
-	margin-bottom: $spacing/2;
+	margin-bottom: 2 * $spacing;
 }
 
 </style>
