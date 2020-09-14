@@ -45,6 +45,7 @@ export default {
 		/*building-density-cumulative*/[4000, 8000, 12000, 16000],
 		/*pop-density*/[2000, 4000, 6000, 8000]
 	],
+	CHART_HEIGHT_PX: 200,
 	SQ_MILES_DECIMALS: 1,
 	BUILDING_DENSITY_DECIMALS: 1
 }

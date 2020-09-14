@@ -16,11 +16,11 @@ const store = new Vuex.Store({
 		},
 		// the ALL CAPS is to match how the data comes in from the source JSON	
 		activeMuniInfo: {
-			'MUN_CODE': '0701',
-			'NAME': 'Borage',
-			'POP2010': '100',
-			'POPDEN2010': '100',
-			'SQ_MILES': '100',
+			'MUN_CODE': '',
+			'NAME': '',
+			'POP2010': '',
+			'POPDEN2010': '',
+			'SQ_MILES': '',
 			'time_periods': {}
 		},
 		muniTranslucence: 'opaque',

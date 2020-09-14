@@ -17,9 +17,9 @@
 					<td>{{ activeMuniInfo.POPDEN2010 }} people/mi<sup>2</sup> </td>
 				</tr>
 			</table>
-			<p>{{ unitTitle }} <br />
+			<p>{{ buildingData[activePeriodId] }} {{ unitTitle }} <br />
 			<small>{{ unitSubtitle }}</small></p>
-			<div v-if="unit">
+			<div v-if="activeMetric && activeMetricId != 4">
 				<MuniGraphXAxis />
 				<div class="nj-muni-graph__bar-container">
 					<div
@@ -48,9 +48,9 @@
 					</div>
 				</div>
 			</div>
-			<div v-else>
-				<p>No graph (population density data is only availble for the year 2010) </p>
-			</div>
+			<p class="nj-muni-graph__empty-message" v-else>
+				No graph (population density data is only availble for the year 2010)
+			</p>
 		</div>
 		<div class="nj-muni-graph__empty-message" v-else><p>Click a municipality on the map for a chart of its development over time </p></div>
 	</div>
@@ -86,10 +86,11 @@ export default {
 			let values = [];
 			
 			constants.TIME_PERIODS.forEach((period) => {
-				values.push(functions.calcMetricValue(this.activeMuniInfo, period, this.activeMetric));
+				values.push(functions.calcMetricValue(this.activeMuniInfo, period, this.activeMetricId));
 			});
-			if (this.unit == 'buildings per square mile') {
-				values = values.map(val =>
+			if (this.activeMetricId == 2 || this.activeMetricId == 3) {
+			// If the metric is related to building density, then the values need to be rounded
+				return values.map(val =>
 					Number.parseFloat(val).toFixed(constants.BUILDING_DENSITY_DECIMALS)
 				);
 			}
@@ -181,6 +182,7 @@ export default {
 	}
 	&__empty-message {
 		font-style: italic;
+		font-size: $font-size-sm;
 	}
 	&__muni-info {
 		width: 100%;
