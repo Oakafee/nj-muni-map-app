@@ -34,7 +34,6 @@ export default {
 			set(id) {
 				store.commit('switchMetric', id);
 				if (!this.metricsAdded.includes(id)) {
-					console.log('metricId getter');
 					this.addMuniData();
 					this.metricsAdded.push(id);
 				}
@@ -56,7 +55,6 @@ export default {
 				},
 			}).addTo(this.njMap);
 			this.addPeriodClasses();
-			console.log('displayMunis method');
 		},
 		addPeriodClasses() {
 			constants.TIME_PERIODS.forEach((period) => {
@@ -74,7 +72,6 @@ export default {
 				return;
 			}
 			constants.TIME_PERIODS.forEach((period) => {
-				console.log('buildingMapLayer ', this.buildingMapLayer.eachLayer);
 				this.buildingMapLayer.eachLayer((layer) => {
 					const metricValue =
 						functions.calcMetricValue(layer.feature.properties, period, this.metricId);
