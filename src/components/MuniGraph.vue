@@ -24,7 +24,7 @@
 				<div class="nj-muni-graph__bar-container">
 					<div
 						class="nj-muni-graph__bar"
-						:class="(unit == 'building-density' ?
+						:class="((activeMetricId == 2 || activeMetricId == 3) ?
 							'nj-muni-graph__bar--build-density' :
 							'nj-muni-graph__bar--building'
 						)"

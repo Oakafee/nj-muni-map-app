@@ -34,6 +34,7 @@ export default {
 			set(id) {
 				store.commit('switchMetric', id);
 				if (!this.metricsAdded.includes(id)) {
+					console.log('metricId getter');
 					this.addMuniData();
 					this.metricsAdded.push(id);
 				}
@@ -55,7 +56,7 @@ export default {
 				},
 			}).addTo(this.njMap);
 			this.addPeriodClasses();
-			this.addMuniData();
+			console.log('displayMunis method');
 		},
 		addPeriodClasses() {
 			constants.TIME_PERIODS.forEach((period) => {
@@ -73,6 +74,7 @@ export default {
 				return;
 			}
 			constants.TIME_PERIODS.forEach((period) => {
+				console.log('buildingMapLayer ', this.buildingMapLayer.eachLayer);
 				this.buildingMapLayer.eachLayer((layer) => {
 					const metricValue =
 						functions.calcMetricValue(layer.feature.properties, period, this.metricId);
@@ -103,9 +105,9 @@ export default {
 		axios.get(`${constants.BASE_API_URL}${constants.MUNI_FILENAME}`)
 			.then((response) => {
 				_this.displayMunis(response.data);
+				_this.metricId = 0;
 				store.commit('changeLoadingState', false);
 		});
-		this.metricId = 0;
 	}
 }
 </script>

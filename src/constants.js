@@ -25,10 +25,10 @@ export default {
 	METRICS: ['building-period', 'building-cumulative', 'building-density-period', 'building-density-cumulative', 'pop-density'],
 	METRICS_PRETTY: ['Buildings Built by Time Period', 'Buildings Built, Cumulative', 'Building Density by Time Period', 'Building Density, Cumulative', 'Population Density (2010)'],
 	METRICS_UNITS: [
-		/*building-period*/['Buildings Built', 'during'],
-		/*building-cumulative*/['Buildings Built', 'through'],
-		/*building-density-period*/['Buildings per Sq. Mi', 'during'],
-		/*building-density-cumulative*/['Buildings per Sq. Mi', 'through'],
+		/*building-period*/['Building Units Built', 'during'],
+		/*building-cumulative*/['Building Units Built', 'through'],
+		/*building-density-period*/['Building Units / Sq. Mi', 'during'],
+		/*building-density-cumulative*/['Building Units / Sq. Mi', 'through'],
 		/*pop-density*/['People per Sq. Mi', ''],
 	],
 	LEGEND_SCALE_LEVELS: [

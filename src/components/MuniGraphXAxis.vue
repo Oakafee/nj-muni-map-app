@@ -14,7 +14,7 @@
 			<text x="19" y="160">{{ xscale[0] }}</text>
 		</g>
 		<g class="explanation">
-			<text x="0" y="0" transform="translate(12, 150) rotate(270)">{{ unitTitle }}</text>
+			<text x="0" y="0" transform="translate(12, 170) rotate(270)">{{ unitTitle }}</text>
 		</g>
 	</svg>
 </template>
